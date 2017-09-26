@@ -14,6 +14,7 @@ import java.io.OutputStreamWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.util.regex.*;
 class FirstPage{ //Ê×Ò³
     public static String showmessage(){   
     	String str = "";
@@ -488,8 +489,10 @@ class NewInputText extends JFrame implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e){   
-	     if(e.getSource() == tb){     
-	    	 text_user.setText(Lab1_Pair.generateNewText(text.getText()));
+	     if(e.getSource() == tb){
+	    	 String temp;
+	    	 temp = text.getText().replaceAll("[^a-zA-Z]"," ");
+	    	 text_user.setText(Lab1_Pair.generateNewText(temp));
 	    	 //System.out.print(text.getText());  
 	      }
    }    
