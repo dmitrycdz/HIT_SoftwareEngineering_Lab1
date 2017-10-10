@@ -494,7 +494,7 @@ public class Lab1_Pair{
 		Dij D = new Dij(vertexNum);
 		D.dijkstra(w1,head);
 		if(D.dist[w2].d == INF){
-			ans += "没有路径";
+			ans += "不可达";
 			return ans;
 		}
 		waypoint = new ArrayList<ArrayList<Integer>>();
