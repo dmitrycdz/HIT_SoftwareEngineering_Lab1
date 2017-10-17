@@ -1,20 +1,20 @@
 package software_engineering;
 
-import java.io.IOException;
-import java.awt.event.ActionListener;   
-import java.awt.event.ActionEvent;   
-import java.awt.event.ItemListener;   
-import java.awt.event.ItemEvent;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.awt.*;
+import java.awt.event.ActionEvent;   
+import java.awt.event.ActionListener;   
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.OutputStreamWriter;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.io.OutputStreamWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.util.regex.*;
+
 class FirstPage{ //首页
     public static String showmessage(){   
     	String str = "";
@@ -31,11 +31,9 @@ class FirstPage{ //首页
         	}
         	br.close();
         	reader.close();
-    	}
-    	catch(FileNotFoundException e) {
+    	}catch(FileNotFoundException e) {
             e.printStackTrace();
-      }
-      catch(IOException e) {
+      }catch(IOException e) {
             e.printStackTrace();
       }
     	return string;
@@ -105,8 +103,7 @@ class MenuBar extends JFrame implements ActionListener{ //菜单栏
     public void actionPerformed(ActionEvent e){   
         if (e.getSource()== quit) {   
         	System.exit(0);   
-        }
-        else if (e.getSource()== open1) {   
+        }else if (e.getSource()== open1) {   
         	this.filestr = new fileChooser().filestr;
   		  	File.transformFile(this.filestr);
   		  	String str = "data.txt";
@@ -121,40 +118,35 @@ class MenuBar extends JFrame implements ActionListener{ //菜单栏
   		  	shortestpath.setVisible(false);
   		  	randomwalk.setVisible(false);
   		  	graph.showDirectedGraph();   
-        }
-        else if (e.getSource()== open2) {   
+        }else if (e.getSource()== open2) {   
         	showgraph = new ShowDirectedGraph();
   		    showgraph.setVisible(true);
   		    querybridgewords.setVisible(false); 
   		    newinputtext.setVisible(false);
   		    shortestpath.setVisible(false);
   		    randomwalk.setVisible(false);   
-        }
-        else if (e.getSource()== open3) {   
+        }else if (e.getSource()== open3) {   
         	querybridgewords = new QueryBridgeWords();
         	showgraph.setVisible(false);
   		    querybridgewords.setVisible(true); 
   		    newinputtext.setVisible(false);
   		    shortestpath.setVisible(false);
   		    randomwalk.setVisible(false);   
-        }
-        else if (e.getSource()== open4) {   
+        }else if (e.getSource()== open4) {   
         	newinputtext = new NewInputText();
         	showgraph.setVisible(false);
   		    querybridgewords.setVisible(false); 
   		    newinputtext.setVisible(true);
   		    shortestpath.setVisible(false);
   		    randomwalk.setVisible(false);   
-        }
-        else if (e.getSource()== open5) {   
+        }else if (e.getSource()== open5) {   
         	shortestpath = new CalShortestPath();
         	showgraph.setVisible(false);
   		    querybridgewords.setVisible(false); 
    		    newinputtext.setVisible(false);
    		    shortestpath.setVisible(true);
    		    randomwalk.setVisible(false);   
-        }
-        else if (e.getSource()== open6) {   
+        }else if (e.getSource()== open6) {   
         	randomwalk = new RandomWalk();
         	showgraph.setVisible(false);
   		    randomwalk.showpath();
@@ -187,7 +179,9 @@ class fileChooser{    //选择文件
 	        //this.filestr += ("\\"+jfc.getSelectedFile().getName());
 	        jfc.setVisible(false);
 	        
-    	}catch(Exception e){}
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
     }
 }
 
@@ -314,6 +308,7 @@ class MyShowPanel extends JPanel implements ActionListener,ItemListener{
 	         		  shortestpath.setVisible(false);
 	         		  randomwalk.setVisible(true);  
 	     		      break; 
+	     		default: break;
 	    	}
 	    } 
    }
@@ -369,13 +364,13 @@ class QueryBridgeWords extends JFrame implements ActionListener,ItemListener{
         text_user.setFont(font2);
         word1.setFont(font1);
         word2.setFont(font1);
-        JPanel MPanel = new JPanel(new GridLayout()); 
-		JPanel RightPanel = new JPanel();
 		picPanel = new picDisplayPanel();
 		picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\out.gif");
 		JScrollPane sp = new JScrollPane(picPanel);
 		sp.validate();
+		JPanel MPanel = new JPanel(new GridLayout()); 
 		MPanel.add(sp);
+		JPanel RightPanel = new JPanel();
 		RightPanel.add(scrollPane);
 		RightPanel.add(word1);
 		RightPanel.add(word2);
@@ -396,12 +391,10 @@ class QueryBridgeWords extends JFrame implements ActionListener,ItemListener{
         			gv.add(Lab1_Pair.head[i].Name+"[color = lightblue,style = filled]");
         			gv.add(p.Name+"[color = green,style = filled]");
         			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+",color=red];");
-        		}
-        		else if(findBridgeWord(bridgeword,Lab1_Pair.head[i].Name)&&p.Name.equals(word2)){
+        		}else if(findBridgeWord(bridgeword,Lab1_Pair.head[i].Name)&&p.Name.equals(word2)){
         			gv.add(p.Name+"[color = lightblue,style = filled]");
         			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+",color=red];");
-        		}
-        		else
+        		}else
         			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+"];");
         		p = p.link;
         	}
@@ -423,19 +416,21 @@ class QueryBridgeWords extends JFrame implements ActionListener,ItemListener{
     public void actionPerformed(ActionEvent e){   
 	     if(e.getSource() == submit){     
 	    	 String string1 = Lab1_Pair.queryBridgeWords(word1.getText(),word2.getText());
-	    	 if(string1.equals("-1"))
+	    	 if(string1.equals("-1")){
 	    		 text_user.setText("No word1 or word2 in the graph!");
-	    	 else if(string1.equals("0"))
+	    	 }else if(string1.equals("0")){
 	    		 text_user.setText("No bridge words from word1 to word2!");
-	    	 else{
+	    	 }else{
 	    		 String[] str = string1.split(" ");
 	    		 String strl = "The bridge words from word1 to word2 are:\n";
-	    		 for(int i = 0;i < str.length-1;i++)
+	    		 for(int i = 0;i < str.length-1;i++){
 	    			 strl += str[i]+" , ";
-	    		 if(str.length == 1)
+	    		 }
+	    		 if(str.length == 1){
 	    			 strl += str[0];
-	    		 else
+	    		 }else{
 	    			 strl += " and "+str[str.length-1];
+	    		 }
 	    		 text_user.setText(strl);
 	    		 showDirectedGraph(word1.getText(),word2.getText(),str);
 	    		 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outQBW.gif");
@@ -452,7 +447,8 @@ class NewInputText extends JFrame implements ActionListener{
 	private TextField text;         //describe the JTextArea,TextField,button,font
 	private JButton tb;
 	private JScrollPane scrollPane;
-	private Font font1,font2;
+	private Font font1;
+	private Font font2;
 	//static Lab1_Pair lab1 = new Lab1_Pair();
 	
 	public NewInputText(){                   
@@ -473,12 +469,12 @@ class NewInputText extends JFrame implements ActionListener{
 		text_user.setFont(font2);
 		scrollPane = new JScrollPane(text_user,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
 		JPanel MPanel = new JPanel(new GridLayout()); 
-		JPanel RightPanel = new JPanel();
 		picDisplayPanel picPanel = new picDisplayPanel();
 		picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\out.gif");
 		JScrollPane sp = new JScrollPane(picPanel);
 		sp.validate();
 		MPanel.add(sp);
+		JPanel RightPanel = new JPanel();
 		RightPanel.add(scrollPane);
 		RightPanel.add(text);
 		RightPanel.add(tb);
@@ -490,9 +486,16 @@ class NewInputText extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e){   
 	     if(e.getSource() == tb){
-	    	 String temp;
-	    	 temp = text.getText().replaceAll("[^a-zA-Z]"," ");
-	    	 text_user.setText(Lab1_Pair.generateNewText(temp));
+	    	 char[] ch = text.getText().toCharArray();
+	    	 String result = "";  
+	    	 for(int i = 0; i < ch.length; i++){  
+	    		 if((ch[i] >= 'a' && ch[i] <= 'z')||(ch[i] >= 'A' && ch[i] <= 'Z')||ch[i]==' '){
+	    			 result += ch[i];
+	    		 }else{
+	    			 result += " ";
+	    		 }
+	    	 }  
+	    	 text_user.setText(Lab1_Pair.generateNewText(result));
 	    	 //System.out.print(text.getText());  
 	      }
    }    
@@ -502,7 +505,8 @@ class CalShortestPath extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JTextArea text_user;                                //文本区    
     private JScrollPane scrollPane; 
-    private TextField word1,word2;
+    private TextField word1;
+    private TextField word2;
     JButton submit = new JButton("查询"); 
 	private Font font1;
 	private Font font2;
@@ -527,13 +531,13 @@ class CalShortestPath extends JFrame implements ActionListener{
         text_user.setFont(font2);
         word1.setFont(font1);
         word2.setFont(font1);
-        JPanel MPanel = new JPanel(new GridLayout()); 
-		JPanel RightPanel = new JPanel();
 		picPanel = new picDisplayPanel();
 		picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\out.gif");
 		JScrollPane sp = new JScrollPane(picPanel);
 		sp.validate();
+        JPanel MPanel = new JPanel(new GridLayout()); 
 		MPanel.add(sp);
+		JPanel RightPanel = new JPanel();
 		RightPanel.add(scrollPane);
 		RightPanel.add(word1);
 		RightPanel.add(word2);
@@ -561,7 +565,9 @@ class CalShortestPath extends JFrame implements ActionListener{
 	        		gv.addln(Lab1_Pair.head[Lab1_Pair.waypoint.get(i).get(j)].Name+"->"+Lab1_Pair.head[Lab1_Pair.waypoint.get(i).get(j+1)].Name+"[color="+color[i]+"];");
 	        	}
 	        }
-        }catch(Exception e){}
+        }catch(Exception e){
+        	e.printStackTrace();
+        }
         gv.addln(gv.end_graph());
         //System.out.println(gv.getDotSource());
         String type = "gif";
@@ -576,8 +582,7 @@ class CalShortestPath extends JFrame implements ActionListener{
 				//text_user.setText(word1.getText()+word2.getText());
 				path = Lab1_Pair.calcShortestPath(word1.getText(),word2.getText());
 				showDirectedGraph_2word();
-			}
-			else if(word1.getText().isEmpty() && !word2.getText().isEmpty() || !word1.getText().isEmpty() && word2.getText().isEmpty()){
+			}else if(word1.getText().isEmpty() && !word2.getText().isEmpty() || !word1.getText().isEmpty() && word2.getText().isEmpty()){
 				//text_user.setText(word1.getText()+word2.getText());
 				path = Lab1_Pair.calcShortestPath_Oneword(word1.getText()+word2.getText());
 			}
@@ -622,13 +627,13 @@ class RandomWalk extends JFrame implements ActionListener{
 		font2 = new Font("Serif",Font.BOLD,25);  
         text_user.setFont(font2);
         scrollPane = new JScrollPane(text_user,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
-        JPanel MPanel = new JPanel(new GridLayout()); 
-		JPanel RightPanel = new JPanel();
 		picPanel = new picDisplayPanel();
 		picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\out.gif");
 		JScrollPane sp = new JScrollPane(picPanel);
 		sp.validate();
+        JPanel MPanel = new JPanel(new GridLayout()); 
 		MPanel.add(sp);
+		JPanel RightPanel = new JPanel();
 		RightPanel.add(scrollPane);
 		RightPanel.add(next);
 		RightPanel.add(this.blank1);
@@ -668,9 +673,9 @@ class RandomWalk extends JFrame implements ActionListener{
         	while(p != null){
         		if(findNode(Lab1_Pair.head[i].Name,p.Name,num)){
         			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+",color=red];");
-        		}
-        		else
+        		}else{
         			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+"];");
+        		}
         		p = p.link;
         	}
         }
@@ -687,35 +692,40 @@ class RandomWalk extends JFrame implements ActionListener{
 	    		 if(step == 0){
 		    		 string += (str1[step++]);
 		    		 text_user.setText(string);
-		    	 }
-	    		 else if(step < str1.length){
+		    	 }else if(step < str1.length){
 		    		 string += ("->"+str1[step++]);
 		    		 text_user.setText(string);
 		    		 showDirectedGraph(step);
 		    		 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outRDW.gif");
-		    	 }
-		    	 else{
-		    		 try{os = new OutputStreamWriter(new FileOutputStream("datarandom.txt"));
-		    		 os.write(string);os.close();}
-		    		 catch(IOException e1){}
+		    	 }else{
+		    		 try{
+		    			 os = new OutputStreamWriter(new FileOutputStream("datarandom.txt"));
+		    		 os.write(string);
+		    		 os.close();
+		    		 }catch(IOException e1){
+		    			 e1.printStackTrace();
+		    		 }
 		    		 string += "\n已到路的尽头！！！";
 		    		 text_user.setText(string);
 		    		 flag = true;
 		    		 /*showDirectedGraph(step);
 		    		 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outRDW.gif");*/
 		    	 }
+	    	 }else if(!flag){
+	    		 text_user.setText("请先生成图，再选用此功能！！！");
 	    	 }
-	    	 else if(!flag){text_user.setText("请先生成图，再选用此功能！！！");}
-	     }
-	     else if(e.getSource() == stop){
+	     }else if(e.getSource() == stop){
 	    	 flag = true;
-	    	 try{os = new OutputStreamWriter(new FileOutputStream("datarandom.txt"));
-    		 os.write(string);os.close();}
-    		 catch(IOException e1){}
+	    	 try{
+	    		 os = new OutputStreamWriter(new FileOutputStream("datarandom.txt"));
+    		 os.write(string);
+    		 os.close();
+    		 }catch(IOException e1){
+    			 e1.printStackTrace();
+    		 }
 	    	 /*showDirectedGraph(step);
 	    	 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outRDW.gif");*/
-	     }
-	     else if(e.getSource() == reset){
+	     }else if(e.getSource() == reset){
 	    	 showpath();
 	    	 flag = false;
 	    	 step = 0;

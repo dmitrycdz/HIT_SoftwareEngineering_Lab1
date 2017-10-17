@@ -15,14 +15,12 @@ public class login extends JFrame implements ActionListener
 	  TextField loginname = new TextField ("1150310320",24);   
 	  JPasswordField password = new JPasswordField("0123456789",17);   
 	  UserJFrame userjframe = new UserJFrame();   
-	  private Font font1,font2;
+	  private Font font1;
+	  private Font font2;
 	  static login loginframe = new login();  
 	  public login()   
 	  {    
-	     super("Lab1-结对编程");   
-	       
-	     JLabel label_1 = new JLabel("  用户名  ");   
-	     JLabel label_2 = new JLabel("    密码   ");   
+	     super("Lab1-结对编程");       
 	     b_subit.addActionListener(this);   
 	     b_reset.addActionListener(this);   
 	     font1 = new Font("SansSerif",Font.BOLD,25);
@@ -33,14 +31,16 @@ public class login extends JFrame implements ActionListener
 	     this.setLocation(600,300);               //框架显示在屏幕的位置   
 	     this.setLayout(new FlowLayout());        //框架流布局，居中   
 	     this.add(new JLabel("                                                                                                                                                                                                               "));   
+	     JLabel label_1 = new JLabel("  用户名  ");   
 	     this.add(label_1);           //创建标签，添加到框架上    
 	     this.add(loginname );     //创建文本行   
 	     this.add(this.blank1);   
+	     JLabel label_2 = new JLabel("    密码   ");   
 	     this.add(label_2);   
-	     this.add(password);             //创建20列的文本行   
+	     this.add(password);             
 	     this.add(this.blank2);   
 	     this.add(this.blank3);   
-	     this.add(b_subit);              //创建按钮   
+	     this.add(b_subit);            
 	     this.add(this.blank4);
 	     this.add(b_reset);   
 	     label_1.setFont(font1);
@@ -65,8 +65,7 @@ public class login extends JFrame implements ActionListener
 	    		 JOptionPane.showMessageDialog(this, jlabel,"提示",JOptionPane.WARNING_MESSAGE);
 	    		 userjframe.setVisible(true);   
 	             loginframe.setVisible(false);  
-	         }   
-	         else 
+	         }else 
 	         {
 	        	JOptionPane.showMessageDialog(this,"用户名或密码错误\n");    
 	            System.out.println(loginname.getText().equals("1150310320"));

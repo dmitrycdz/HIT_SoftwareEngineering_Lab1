@@ -140,7 +140,9 @@ public class GraphViz
 	         return img_stream;
 	      }
 	      return null;
-	   }catch (java.io.IOException ioe) { return null; }
+	   }catch (java.io.IOException ioe) { 
+		   return null; 
+	   }
 	}
 	
 	/**
@@ -165,7 +167,10 @@ public class GraphViz
 	      FileOutputStream fos = new FileOutputStream(to);
 	      fos.write(img);
 	      fos.close();
-	   } catch (java.io.IOException ioe) { ioe.printStackTrace();return -1; }
+	   } catch (java.io.IOException ioe) { 
+		   ioe.printStackTrace();
+		   return -1; 
+	   }
 	   return 1;
 	}
 	
@@ -198,13 +203,11 @@ public class GraphViz
 	
 	      if (img.delete() == false) 
 	         System.err.println("Warning: " + img.getAbsolutePath() + " could not be deleted!");
-	   }
-	   catch(java.io.IOException ioe){
+	   }catch(java.io.IOException ioe){
 	      System.err.println("Error:    in I/O processing of tempfile in dir " + GraphViz.TEMP_DIR+"\n");
 	      System.err.println("       or in calling external command");
 	      ioe.printStackTrace();
-	   }
-	   catch(java.lang.InterruptedException ie){
+	   }catch(java.lang.InterruptedException ie){
 	      System.err.println("Error: the execution of the external program was interrupted");
 	      ie.printStackTrace();
 	   }
@@ -224,8 +227,7 @@ public class GraphViz
 	      FileWriter fout = new FileWriter(temp);
 	      fout.write(str);
 	      fout.close();
-	   }
-	   catch (Exception e){
+	   }catch (Exception e){
 	      System.err.println("Error: I/O error while writing the dot source to temp file!");
 	      return null;
 	   }
@@ -268,8 +270,7 @@ public class GraphViz
 				sb.append(line);
 			}
 			dis.close();
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
 	 
