@@ -1,56 +1,55 @@
 package software_engineering;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;   
-import java.awt.event.ActionListener;   
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.OutputStreamWriter;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.io.OutputStreamWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 
-class FirstPage{ //Ê×Ò³
-    public static String showmessage(){   
-    	String str = "";
-    	String string = "";
-    	try {
-    		File file = new File("page.txt");
-        	FileReader reader = new FileReader(file);
-        	BufferedReader br = new BufferedReader(reader);
-        	
-        	while((str = br.readLine()) != null) {
-                string += str;
-                string += "\n";
-                
-        	}
-        	br.close();
-        	reader.close();
-    	}catch(FileNotFoundException e) {
-            e.printStackTrace();
-      }catch(IOException e) {
-            e.printStackTrace();
-      }
-    	return string;
-    }   
+class FirstPage{ //é¦–é¡µ
+    public static String showmessage(){
+	    	String str = "";
+	    	String string = "";
+	    	try {
+	    		File file = new File("page.txt");
+	        	FileReader reader = new FileReader(file);
+	        	BufferedReader br = new BufferedReader(reader);
+	        	
+	        	while((str = br.readLine()) != null) {
+	            string += str;
+	            string += "\n";
+	        	}
+	        	br.close();
+	        	reader.close();
+	    	} catch(FileNotFoundException e) {
+	        e.printStackTrace();
+	    } catch(IOException e) {
+	    		e.printStackTrace();
+	    	}
+	    	return string;
+    } 
 }  
 
-class MenuBar extends JFrame implements ActionListener{ //²Ëµ¥À¸
+class MenuBar extends JFrame implements ActionListener{ //èœå•æ 
 	private static final long serialVersionUID = 1L;
 	JMenuBar menuBar = new JMenuBar();
-    JMenu file = new JMenu("Ñ¡Ïî(F)");
-    JMenuItem open1 = new JMenuItem("¹¦ÄÜĞèÇó1");
-    JMenuItem open2 = new JMenuItem("¹¦ÄÜĞèÇó2");
-    JMenuItem open3 = new JMenuItem("¹¦ÄÜĞèÇó3");
-    JMenuItem open4 = new JMenuItem("¹¦ÄÜĞèÇó4");
-    JMenuItem open5 = new JMenuItem("¹¦ÄÜĞèÇó5");
-    JMenuItem open6 = new JMenuItem("¹¦ÄÜĞèÇó6");
-    JMenuItem quit = new JMenuItem("ÍË³ö");
+    JMenu file = new JMenu("é€‰é¡¹(F)");
+    JMenuItem open1 = new JMenuItem("åŠŸèƒ½éœ€æ±‚1");
+    JMenuItem open2 = new JMenuItem("åŠŸèƒ½éœ€æ±‚2");
+    JMenuItem open3 = new JMenuItem("åŠŸèƒ½éœ€æ±‚3");
+    JMenuItem open4 = new JMenuItem("åŠŸèƒ½éœ€æ±‚4");
+    JMenuItem open5 = new JMenuItem("åŠŸèƒ½éœ€æ±‚5");
+    JMenuItem open6 = new JMenuItem("åŠŸèƒ½éœ€æ±‚6");
+    JMenuItem quit = new JMenuItem("é€€å‡º");
     static ShowDirectedGraph showgraph = new ShowDirectedGraph();
 	static QueryBridgeWords querybridgewords = new QueryBridgeWords();
 	static NewInputText newinputtext = new NewInputText();
@@ -61,13 +60,14 @@ class MenuBar extends JFrame implements ActionListener{ //²Ëµ¥À¸
 	ReadFile File = new ReadFile();
 	Graph graph;
 	String filestr = "";
+	
 	public MenuBar(){
-        // ÉèÖÃÖú¼Ç·ûÎªF£¬°´ÏÂALT + F ¿ÉÒÔ´¥·¢¸Ã²Ëµ¥
+        // è®¾ç½®åŠ©è®°ç¬¦ä¸ºFï¼ŒæŒ‰ä¸‹ALT + F å¯ä»¥è§¦å‘è¯¥èœå•
         file.setMnemonic('F');
         file.setFont(new Font("SansSerif",Font.BOLD,18));
 	}
 	public JMenuBar menuBar(){
-		// ²Ëµ¥À¸
+		// èœå•æ 
         open1.setFont(new Font("SansSerif",Font.BOLD,15));
         open2.setFont(new Font("SansSerif",Font.BOLD,15));
         open3.setFont(new Font("SansSerif",Font.BOLD,15));
@@ -76,17 +76,17 @@ class MenuBar extends JFrame implements ActionListener{ //²Ëµ¥À¸
         open6.setFont(new Font("SansSerif",Font.BOLD,15));
         quit.setFont(new Font("SansSerif",Font.BOLD,15));
         file.add(open1);
-        file.addSeparator(); // ÉèÖÃ²Ëµ¥·Ö¸ô·û
+        file.addSeparator(); // è®¾ç½®èœå•åˆ†éš”ç¬¦
         file.add(open2);
-        file.addSeparator(); // ÉèÖÃ²Ëµ¥·Ö¸ô·û
+        file.addSeparator(); // è®¾ç½®èœå•åˆ†éš”ç¬¦
         file.add(open3);
-        file.addSeparator(); // ÉèÖÃ²Ëµ¥·Ö¸ô·û
+        file.addSeparator(); // è®¾ç½®èœå•åˆ†éš”ç¬¦
         file.add(open4);
-        file.addSeparator(); // ÉèÖÃ²Ëµ¥·Ö¸ô·û
+        file.addSeparator(); // è®¾ç½®èœå•åˆ†éš”ç¬¦
         file.add(open5);
-        file.addSeparator(); // ÉèÖÃ²Ëµ¥·Ö¸ô·û
+        file.addSeparator(); // è®¾ç½®èœå•åˆ†éš”ç¬¦
         file.add(open6);
-        file.addSeparator(); // ÉèÖÃ²Ëµ¥·Ö¸ô·û
+        file.addSeparator(); // è®¾ç½®èœå•åˆ†éš”ç¬¦
         file.add(quit);
 
         menuBar.add(file);
@@ -100,136 +100,146 @@ class MenuBar extends JFrame implements ActionListener{ //²Ëµ¥À¸
         return menuBar;
 	}
 	@Override
-    public void actionPerformed(ActionEvent e){   
-        if (e.getSource()== quit) {   
-        	System.exit(0);   
-        }else if (e.getSource()== open1) {   
-        	this.filestr = new fileChooser().filestr;
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource() == quit) {
+        		System.exit(0);
+        } else if (e.getSource() == open1) {
+        		this.filestr = new fileChooser().filestr;
   		  	File.transformFile(this.filestr);
+  		  	
   		  	String str = "data.txt";
   		  	graph = new Graph(str);
   		  	this.vertexNum = graph.buildGraph();
   		  	this.head = graph.head;
   		  	Lab1_Pair.head = graph.head;
   		  	Lab1_Pair.vertexNum = this.vertexNum;
+  		  	
   		  	//System.out.println(this.filestr);
   		  	querybridgewords.setVisible(false); 
   		  	newinputtext.setVisible(false);
   		  	shortestpath.setVisible(false);
   		  	randomwalk.setVisible(false);
-  		  	graph.showDirectedGraph();   
-        }else if (e.getSource()== open2) {   
-        	showgraph = new ShowDirectedGraph();
+  		  	graph.showDirectedGraph();
+        } else if (e.getSource() == open2) {
+        		showgraph = new ShowDirectedGraph();
+        		
   		    showgraph.setVisible(true);
-  		    querybridgewords.setVisible(false); 
+  		    querybridgewords.setVisible(false);
   		    newinputtext.setVisible(false);
   		    shortestpath.setVisible(false);
-  		    randomwalk.setVisible(false);   
-        }else if (e.getSource()== open3) {   
-        	querybridgewords = new QueryBridgeWords();
-        	showgraph.setVisible(false);
+  		    randomwalk.setVisible(false);
+        } else if (e.getSource() == open3) {
+        		querybridgewords = new QueryBridgeWords();
+        		
+        		showgraph.setVisible(false);
   		    querybridgewords.setVisible(true); 
   		    newinputtext.setVisible(false);
   		    shortestpath.setVisible(false);
-  		    randomwalk.setVisible(false);   
-        }else if (e.getSource()== open4) {   
-        	newinputtext = new NewInputText();
-        	showgraph.setVisible(false);
+  		    randomwalk.setVisible(false);
+        }
+        else if (e.getSource() == open4) {
+        		newinputtext = new NewInputText();
+        		
+        		showgraph.setVisible(false);
   		    querybridgewords.setVisible(false); 
   		    newinputtext.setVisible(true);
   		    shortestpath.setVisible(false);
-  		    randomwalk.setVisible(false);   
-        }else if (e.getSource()== open5) {   
-        	shortestpath = new CalShortestPath();
-        	showgraph.setVisible(false);
-  		    querybridgewords.setVisible(false); 
+  		    randomwalk.setVisible(false);
+        } else if (e.getSource() == open5) {
+        		shortestpath = new CalShortestPath();
+        		
+    			showgraph.setVisible(false);
+  		    querybridgewords.setVisible(false);
    		    newinputtext.setVisible(false);
    		    shortestpath.setVisible(true);
-   		    randomwalk.setVisible(false);   
-        }else if (e.getSource()== open6) {   
-        	randomwalk = new RandomWalk();
-        	showgraph.setVisible(false);
+   		    randomwalk.setVisible(false);
+        } else if (e.getSource() == open6) {
+        		randomwalk = new RandomWalk();
+        		
+        		showgraph.setVisible(false);
   		    randomwalk.showpath();
-  	        querybridgewords.setVisible(false); 
+  	        querybridgewords.setVisible(false);
    		    newinputtext.setVisible(false);
    		    shortestpath.setVisible(false);
-   		    randomwalk.setVisible(true);  
+   		    randomwalk.setVisible(true);
         }
-        
-    }  
-
-}
-
-class fileChooser{    //Ñ¡ÔñÎÄ¼ş
-	public String filestr = "";
-	public fileChooser(){
-    	try{
-	    	JFileChooser jfc = new JFileChooser();
-	        jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );  
-	        jfc.showDialog(new JLabel(), "Ñ¡Ôñ");  
-	        File file = jfc.getSelectedFile();  
-	        if(file.isDirectory()){  
-	            //System.out.println("ÎÄ¼ş¼Ğ:"+file.getAbsolutePath());
-	        	this.filestr = file.getAbsolutePath();
-	        }else if(file.isFile()){  
-	            //System.out.println("ÎÄ¼ş:"+file.getAbsolutePath());
-	            this.filestr = file.getAbsolutePath();
-	        }  
-	        //System.out.println(jfc.getSelectedFile().getName());
-	        //this.filestr += ("\\"+jfc.getSelectedFile().getName());
-	        jfc.setVisible(false);
-	        
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
     }
 }
 
-public class UserJFrame extends JFrame{  
+class fileChooser{    //é€‰æ‹©æ–‡ä»¶
+	public String filestr = "";
+	
+	public fileChooser(){
+	    	try{
+			JFileChooser jfc = new JFileChooser();
+			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );  
+			jfc.showDialog(new JLabel(), "é€‰æ‹©");  
+			File file = jfc.getSelectedFile();  
+			
+			if(file.isDirectory()) {
+			    //System.out.println("æ–‡ä»¶å¤¹:"+file.getAbsolutePath());
+					this.filestr = file.getAbsolutePath();
+			} else if(file.isFile()) {  
+			    //System.out.println("æ–‡ä»¶:"+file.getAbsolutePath());
+			    this.filestr = file.getAbsolutePath();
+			}
+			
+			//System.out.println(jfc.getSelectedFile().getName());
+			//this.filestr += ("\\"+jfc.getSelectedFile().getName());
+		    jfc.setVisible(false);
+	    	}catch(Exception e){}
+    }
+}
+
+public class UserJFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	MyShowPanel myshow;
-    public UserJFrame()   
-    {   
-    	super("Ê×Ò³");            
-        this.setSize(650,720);   
-        this.setLocation(600,200);   
-        this.setResizable(false);   
+	
+    public UserJFrame(){
+    		super("é¦–é¡µ");
+        this.setSize(650,720);
+        this.setLocation(600,200);
+        this.setResizable(false);
         setJMenuBar(new MenuBar().menuBar());
-        myshow = new MyShowPanel();   
-        this.getContentPane().add(myshow,BorderLayout.CENTER);   
-        myshow.setVisible(true);         
-    }       
+        
+        myshow = new MyShowPanel();
+        this.getContentPane().add(myshow,BorderLayout.CENTER);
+        myshow.setVisible(true);
+    }
 }       
   
-class MyShowPanel extends JPanel implements ActionListener,ItemListener{
+class MyShowPanel extends JPanel implements ActionListener, ItemListener {
 	private static final long serialVersionUID = 1L;
 	static ShowDirectedGraph showgraph = new ShowDirectedGraph();
 	static QueryBridgeWords querybridgewords = new QueryBridgeWords();
 	static NewInputText newinputtext = new NewInputText();
 	static CalShortestPath shortestpath = new CalShortestPath();
 	static RandomWalk randomwalk = new RandomWalk();
-    static JTextArea text_user;                                //ÎÄ±¾Çø   
+    static JTextArea text_user;                                //æ–‡æœ¬åŒº   
     private JComboBox<Object> alternative;   
     private JScrollPane scrollPane;
     private Font font1;
 	private Font font2;
+	
     //Lab1_Pair lab1 = new Lab1_Pair();
     public int vertexNum = 0;
     public Vertex[] head;
     ReadFile file = new ReadFile();
     Graph graph;
-    JButton b_refresh = new JButton("Ë¢ĞÂÁĞ±í"); 
+    JButton b_refresh = new JButton("åˆ·æ–°åˆ—è¡¨"); 
     String filestr = "";
-    public MyShowPanel(){  
-    	new FirstPage();   //Íê³ÉÊäÈë³õÊ¼³ÉÔ±     
-    	font1 = new Font("SansSerif",Font.BOLD,16);
+    
+    public MyShowPanel() {
+    		new FirstPage();   //å®Œæˆè¾“å…¥åˆå§‹æˆå‘˜
+    		font1 = new Font("SansSerif",Font.BOLD,16);
 		font2 = new Font("Serif",Font.BOLD,16);
-        text_user = new JTextArea("",26,52);   
-        text_user.setEditable(false);   
-        scrollPane = new JScrollPane(text_user,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
-        this.add(scrollPane);    
-        Object alter_content[] = {"Ñ¡Ôñ²Ù×÷","¹¦ÄÜĞèÇó1","¹¦ÄÜĞèÇó2","¹¦ÄÜĞèÇó3","¹¦ÄÜĞèÇó4","¹¦ÄÜĞèÇó5","¹¦ÄÜĞèÇó6"};   
-        alternative = new JComboBox<Object>(alter_content);
+        text_user = new JTextArea("",26,52);
+        text_user.setEditable(false);
+        scrollPane = new JScrollPane(text_user,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        this.add(scrollPane);
+        
+        Object alter_content[] = {"é€‰æ‹©æ“ä½œ","åŠŸèƒ½éœ€æ±‚1","åŠŸèƒ½éœ€æ±‚2","åŠŸèƒ½éœ€æ±‚3","åŠŸèƒ½éœ€æ±‚4","åŠŸèƒ½éœ€æ±‚5","åŠŸèƒ½éœ€æ±‚6"};
+        alternative = new JComboBox<>(alter_content);
         alternative.addItemListener(this);   
         alternative.setFont(font1);
         b_refresh.setFont(font1);
@@ -237,93 +247,104 @@ class MyShowPanel extends JPanel implements ActionListener,ItemListener{
         this.add(alternative);   
         b_refresh.addActionListener(this);   
         this.add(b_refresh);   
-        text_user.setText(FirstPage.showmessage());     
-    }   
+        text_user.setText(FirstPage.showmessage());
+    }
+    
     @Override
-    public void actionPerformed(ActionEvent e){   
-        if (e.getSource()== b_refresh) {   
-           JOptionPane.showMessageDialog(this,"ÎŞĞèË¢ĞÂ,´ËÁĞ±íÒÑ¾­ÔÚÄúĞŞ¸ÄÊ±×Ô¶¯¸üĞÂ¹ı!");   
-        }   
-    }   
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == b_refresh) {
+           JOptionPane.showMessageDialog(this,"æ— éœ€åˆ·æ–°,æ­¤åˆ—è¡¨å·²ç»åœ¨æ‚¨ä¿®æ”¹æ—¶è‡ªåŠ¨æ›´æ–°è¿‡!");   
+        }
+    }
+    
     @Override
-    public void itemStateChanged(ItemEvent e)            //ÔÚ×éºÏ¿òµÄÏÂÀ­ÁĞ±íÖĞÑ¡ÔñÊı¾İÏîÊ±´¥·¢Ö´ĞĞ   
-    {                                                    //ÊµÏÖItemListener½Ó¿ÚÖĞµÄ·½·¨   
-    	 if(e.getStateChange() == ItemEvent.SELECTED){
-	    	switch (alternative.getSelectedIndex()){   
-	        	case 0:
-	        		  querybridgewords.setVisible(false); 
-	        		  newinputtext.setVisible(false);
-	        		  shortestpath.setVisible(false);
-	        		  randomwalk.setVisible(false);
-	                  break;   
-	        	case 1:
-	        		  this.filestr = new fileChooser().filestr;
-	        		  file.transformFile(this.filestr);
-	        		  String str = "data.txt";
-	        		  graph = new Graph(str);
-	        		  this.vertexNum = graph.buildGraph();
-	        		  this.head = graph.head;
-	        		  Lab1_Pair.head = graph.head;
-	        		  Lab1_Pair.vertexNum = this.vertexNum;
-	        		  //System.out.println(this.filestr);
-	        		  querybridgewords.setVisible(false); 
-	        		  newinputtext.setVisible(false);
-	        		  shortestpath.setVisible(false);
-	        		  randomwalk.setVisible(false);
-	        		  graph.showDirectedGraph();
-	                  break;   
-	        	case 2:showgraph = new ShowDirectedGraph();
-	        		  showgraph.setVisible(true);
-	        		  querybridgewords.setVisible(false); 
-	        		  newinputtext.setVisible(false);
-	        		  shortestpath.setVisible(false);
-	        		  randomwalk.setVisible(false);   
-	                  break;   
-	        	case 3:querybridgewords = new QueryBridgeWords();
-	        		  querybridgewords.setVisible(true);
-	        		  showgraph.setVisible(false);
-	        		  newinputtext.setVisible(false);
-	        		  shortestpath.setVisible(false);
-	        		  randomwalk.setVisible(false);   
-	                  break;   
-	        	case 4:newinputtext = new NewInputText();
-	        		  showgraph.setVisible(false);
-	        		  querybridgewords.setVisible(false); 
-	        		  newinputtext.setVisible(true);
-	        		  shortestpath.setVisible(false);
-	        		  randomwalk.setVisible(false);   
-	           		  break;  
-	        	case 5:shortestpath = new CalShortestPath();
-	        		  showgraph.setVisible(false);
-	        		  querybridgewords.setVisible(false); 
-	         		  newinputtext.setVisible(false);
-	         		  shortestpath.setVisible(true);
-	         		  randomwalk.setVisible(false);   
-	     		  	  break; 
-	        	case 6:randomwalk = new RandomWalk();
-	        		  showgraph.setVisible(false);
-	        		  randomwalk.showpath();
-	        	      querybridgewords.setVisible(false); 
-	         		  newinputtext.setVisible(false);
-	         		  shortestpath.setVisible(false);
-	         		  randomwalk.setVisible(true);  
-	     		      break; 
-	     		default: break;
-	    	}
-	    } 
-   }
+    public void itemStateChanged(ItemEvent e) {            //åœ¨ç»„åˆæ¡†çš„ä¸‹æ‹‰åˆ—è¡¨ä¸­é€‰æ‹©æ•°æ®é¡¹æ—¶è§¦å‘æ‰§è¡Œ   
+    		//å®ç°ItemListeneræ¥å£ä¸­çš„æ–¹æ³•
+    	 	if(e.getStateChange() == ItemEvent.SELECTED){
+		    	switch (alternative.getSelectedIndex()){
+		    		case 0:
+					    querybridgewords.setVisible(false);
+					    newinputtext.setVisible(false);
+					    shortestpath.setVisible(false);
+					    randomwalk.setVisible(false);
+					    break;
+		        	case 1:
+					    this.filestr = new fileChooser().filestr;
+					    file.transformFile(this.filestr);
+					    String str = "data.txt";
+					    graph = new Graph(str);
+					    this.vertexNum = graph.buildGraph();
+					    this.head = graph.head;
+					    Lab1_Pair.head = graph.head;
+					    Lab1_Pair.vertexNum = this.vertexNum;
+					
+					    //System.out.println(this.filestr);
+					    querybridgewords.setVisible(false);
+					    newinputtext.setVisible(false);
+					    shortestpath.setVisible(false);
+					    randomwalk.setVisible(false);
+					    graph.showDirectedGraph();
+					    break;
+		        	case 2:
+		        		showgraph = new ShowDirectedGraph();
+		        		showgraph.setVisible(true);
+		        		querybridgewords.setVisible(false); 
+		        		newinputtext.setVisible(false);
+		        		shortestpath.setVisible(false);
+		        		randomwalk.setVisible(false);
+		        		break;   
+		        	case 3:
+		        		querybridgewords = new QueryBridgeWords();
+					    querybridgewords.setVisible(true);
+					    showgraph.setVisible(false);
+					    newinputtext.setVisible(false);
+					    shortestpath.setVisible(false);
+					    randomwalk.setVisible(false);
+					    break;
+		        	case 4:
+		        		newinputtext = new NewInputText();
+					    showgraph.setVisible(false);
+					    querybridgewords.setVisible(false);
+					    newinputtext.setVisible(true);
+					    shortestpath.setVisible(false);
+					    randomwalk.setVisible(false);
+					    break;
+		        	case 5:
+		        		shortestpath = new CalShortestPath();
+					    showgraph.setVisible(false);
+					    querybridgewords.setVisible(false);
+					    newinputtext.setVisible(false);
+					    shortestpath.setVisible(true);
+					    randomwalk.setVisible(false);
+					    break;
+		        	case 6:
+			        	randomwalk = new RandomWalk();
+			        	showgraph.setVisible(false);
+					    randomwalk.showpath();
+					    querybridgewords.setVisible(false);
+					    newinputtext.setVisible(false);
+					    shortestpath.setVisible(false);
+					    randomwalk.setVisible(true);
+					    break;
+					default:
+						break;
+	    		}
+    	 	}
+	}
 }   
 
-class ShowDirectedGraph extends JFrame{     //Õ¹Ê¾ÓĞÏòÍ¼
+class ShowDirectedGraph extends JFrame {     //å±•ç¤ºæœ‰å‘å›¾
 	private static final long serialVersionUID = 1L;
 	JPanel MPanel; 
 	JScrollPane sp;
 	picDisplayPanel picPanel;
-	public ShowDirectedGraph(){
-		super("Õ¹Ê¾ÓĞÏòÍ¼");
+	
+	public ShowDirectedGraph() {
+		super("å±•ç¤ºæœ‰å‘å›¾");
 		this.setSize(700,700);
 		this.setLocationRelativeTo(null);         
 		this.setResizable(true);
+		
 		MPanel = new JPanel(new GridLayout()); 
 		picPanel = new picDisplayPanel();
 		picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\out.gif");
@@ -331,13 +352,14 @@ class ShowDirectedGraph extends JFrame{     //Õ¹Ê¾ÓĞÏòÍ¼
 		sp.validate();
 		MPanel.add(sp);
 		setJMenuBar(new MenuBar().menuBar());
+		
         this.add(MPanel);
 	}
 }
-//²éÑ¯ÇÅ½Ó´Ê
-class QueryBridgeWords extends JFrame implements ActionListener,ItemListener{ 
+//æŸ¥è¯¢æ¡¥æ¥è¯
+class QueryBridgeWords extends JFrame implements ActionListener,ItemListener { 
 	private static final long serialVersionUID = 1L;
-    private TextField word1;     
+    private TextField word1; 
     private TextField word2;     
     private JButton submit;    
     static JTextArea text_user;
@@ -345,11 +367,13 @@ class QueryBridgeWords extends JFrame implements ActionListener,ItemListener{
     picDisplayPanel picPanel;
     private Font font1;
     private Font font2;
+    
     public QueryBridgeWords(){   
-        super("²éÑ¯ÇÅ½Ó´Ê");   
+        super("æŸ¥è¯¢æ¡¥æ¥è¯");   
         this.setSize(1400,795);
 		this.setLocationRelativeTo(null);         //set the frame container
 		this.setResizable(false);
+		
 		text_user = new JTextArea("",19,33);   
         text_user.setEditable(false);
         text_user.setLineWrap(true);
@@ -359,18 +383,20 @@ class QueryBridgeWords extends JFrame implements ActionListener,ItemListener{
         scrollPane = new JScrollPane(text_user,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
         word1 = new TextField(18);   
         word2 = new TextField(18);   
-        submit = new JButton("Ìá½»"); 
+        submit = new JButton("æäº¤"); 
         submit.setFont(font1);
         text_user.setFont(font2);
         word1.setFont(font1);
         word2.setFont(font1);
+        
+        JPanel MPanel = new JPanel(new GridLayout()); 
+		JPanel RightPanel = new JPanel();
 		picPanel = new picDisplayPanel();
 		picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\out.gif");
 		JScrollPane sp = new JScrollPane(picPanel);
 		sp.validate();
-		JPanel MPanel = new JPanel(new GridLayout()); 
 		MPanel.add(sp);
-		JPanel RightPanel = new JPanel();
+		
 		RightPanel.add(scrollPane);
 		RightPanel.add(word1);
 		RightPanel.add(word2);
@@ -380,24 +406,27 @@ class QueryBridgeWords extends JFrame implements ActionListener,ItemListener{
         setJMenuBar(new MenuBar().menuBar());
         submit.addActionListener(this);
     }
-    //½«ÇÅ½Ó´ÊÒÔÌØÊâµÄÑÕÉ«ÏÔÊ¾ÔÚÍ¼Æ¬ÖĞ
-    public void showDirectedGraph(String word1,String word2,String[] bridgeword){
+    
+    //å°†æ¡¥æ¥è¯ä»¥ç‰¹æ®Šçš„é¢œè‰²æ˜¾ç¤ºåœ¨å›¾ç‰‡ä¸­
+    public void showDirectedGraph(String word1,String word2,String[] bridgeword) {
 		GraphViz gv = new GraphViz();
         gv.addln(gv.start_graph());
-        for(int i = 0;i < Lab1_Pair.vertexNum;i++){
-        	Edge p = Lab1_Pair.head[i].adjacent;
-        	while(p != null){
-        		if(Lab1_Pair.head[i].Name.equals(word1)&&findBridgeWord(bridgeword,p.Name)){
-        			gv.add(Lab1_Pair.head[i].Name+"[color = lightblue,style = filled]");
-        			gv.add(p.Name+"[color = green,style = filled]");
-        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+",color=red];");
-        		}else if(findBridgeWord(bridgeword,Lab1_Pair.head[i].Name)&&p.Name.equals(word2)){
-        			gv.add(p.Name+"[color = lightblue,style = filled]");
-        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+",color=red];");
-        		}else
-        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+"];");
-        		p = p.link;
-        	}
+        
+        for(int i = 0;i < Lab1_Pair.vertexNum;i++) {
+        		Edge p = Lab1_Pair.head[i].adjacent;
+	        	while(p != null) {
+	        		if (Lab1_Pair.head[i].Name.equals(word1)&&findBridgeWord(bridgeword,p.Name)) {
+	        			gv.add(Lab1_Pair.head[i].Name+"[color = lightblue,style = filled]");
+	        			gv.add(p.Name+"[color = green,style = filled]");
+	        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+",color=red];");
+	        		} else if (findBridgeWord(bridgeword,Lab1_Pair.head[i].Name)&&p.Name.equals(word2)) {
+	        			gv.add(p.Name+"[color = lightblue,style = filled]");
+	        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+",color=red];");
+	        		} else {
+	        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+"];");
+	        		}
+	        		p = p.link;
+	        	}
         }
         gv.addln(gv.end_graph());
         //System.out.println(gv.getDotSource());
@@ -405,54 +434,58 @@ class QueryBridgeWords extends JFrame implements ActionListener,ItemListener{
         File out = new File(Lab1_Pair.pathtext+"/outQBW." + type);
         gv.writeGraphToFile( gv.getGraph( gv.getDotSource(), type ), out );
 	}
+    
     public boolean findBridgeWord(String[] str,String s){
-    	for(int i = 0;i < str.length;i++){
-    		if(str[i].equals(s))
-    			return true;
-    	}
-    	return false;
+	    	for(int i = 0;i < str.length;i++){
+	    		if(str[i].equals(s)) {
+	    			return true;
+	    		}
+	    	}
+	    	
+	    	return false;
     }
+    
     @Override
-    public void actionPerformed(ActionEvent e){   
-	     if(e.getSource() == submit){     
-	    	 String string1 = Lab1_Pair.queryBridgeWords(word1.getText(),word2.getText());
-	    	 if(string1.equals("-1")){
-	    		 text_user.setText("No word1 or word2 in the graph!");
-	    	 }else if(string1.equals("0")){
-	    		 text_user.setText("No bridge words from word1 to word2!");
-	    	 }else{
-	    		 String[] str = string1.split(" ");
-	    		 String strl = "The bridge words from word1 to word2 are:\n";
-	    		 for(int i = 0;i < str.length-1;i++){
-	    			 strl += str[i]+" , ";
-	    		 }
-	    		 if(str.length == 1){
-	    			 strl += str[0];
-	    		 }else{
-	    			 strl += " and "+str[str.length-1];
-	    		 }
-	    		 text_user.setText(strl);
-	    		 showDirectedGraph(word1.getText(),word2.getText(),str);
-	    		 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outQBW.gif");
-	    	 }
-	      }
-    }       
-    public void itemStateChanged(ItemEvent e){   
-    }  
+    public void actionPerformed(ActionEvent e) {   
+	     if (e.getSource() == submit) {     
+	    	 	String string1 = Lab1_Pair.queryBridgeWords(word1.getText(),word2.getText());
+		    	 if (string1.equals("-1")) {
+		    		 text_user.setText("No word1 or word2 in the graph!");
+		    	 } else if (string1.equals("0")) {
+		    		 text_user.setText("No bridge words from word1 to word2!");
+		    	 } else{
+		    		 String[] str = string1.split(" ");
+		    		 String strl = "The bridge words from word1 to word2 are:\n";
+		    		 for(int i = 0;i < str.length-1;i++) {
+		    			 strl += str[i]+" , ";
+		    		 }
+		    		 if(str.length == 1) {
+		    			 strl += str[0];
+		    		 } else {
+		    			 strl += " and "+str[str.length-1];
+		    		 }
+		    		 text_user.setText(strl);
+		    		 showDirectedGraph(word1.getText(),word2.getText(),str);
+		    		 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outQBW.gif");
+	    	 	}
+	    }
+    }
+    
+    public void itemStateChanged(ItemEvent e) {}
 }
-//¸ù¾İÇÅ½Ó´ÊÉú³ÉĞÂÎÄ±¾
+
+//æ ¹æ®æ¡¥æ¥è¯ç”Ÿæˆæ–°æ–‡æœ¬
 class NewInputText extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	static JTextArea text_user;
 	private TextField text;         //describe the JTextArea,TextField,button,font
 	private JButton tb;
 	private JScrollPane scrollPane;
-	private Font font1;
-	private Font font2;
+	private Font font1,font2;
 	//static Lab1_Pair lab1 = new Lab1_Pair();
 	
-	public NewInputText(){                   
-		super("¸ù¾İÇÅ½Ó´ÊÉú³ÉĞÂÎÄ±¾");
+	public NewInputText() {
+		super("æ ¹æ®æ¡¥æ¥è¯ç”Ÿæˆæ–°æ–‡æœ¬");
 		this.setSize(1400,795);
 		this.setLocationRelativeTo(null);    
 		this.setResizable(false);
@@ -460,7 +493,8 @@ class NewInputText extends JFrame implements ActionListener{
         text_user.setEditable(false); 
         text_user.setLineWrap(true);
         text_user.setWrapStyleWord(true);
-		tb = new JButton("Ìá½»");
+        
+		tb = new JButton("æäº¤");
 		text = new TextField(50);
 		font1 = new Font("Serif",Font.BOLD,16);
 		font2 = new Font("Serif",Font.BOLD,25);
@@ -468,141 +502,148 @@ class NewInputText extends JFrame implements ActionListener{
 		text.setFont(font1);
 		text_user.setFont(font2);
 		scrollPane = new JScrollPane(text_user,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
+
 		JPanel MPanel = new JPanel(new GridLayout()); 
+		JPanel RightPanel = new JPanel();
 		picDisplayPanel picPanel = new picDisplayPanel();
 		picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\out.gif");
 		JScrollPane sp = new JScrollPane(picPanel);
 		sp.validate();
 		MPanel.add(sp);
-		JPanel RightPanel = new JPanel();
 		RightPanel.add(scrollPane);
 		RightPanel.add(text);
 		RightPanel.add(tb);
 		MPanel.add(RightPanel);
+		
         this.add(MPanel);
         setJMenuBar(new MenuBar().menuBar());
 	    tb.addActionListener(this);   //add listener for button
 	}
+	
 	@Override
-	public void actionPerformed(ActionEvent e){   
-	     if(e.getSource() == tb){
-	    	 char[] ch = text.getText().toCharArray();
-	    	 String result = "";  
-	    	 for(int i = 0; i < ch.length; i++){  
-	    		 if((ch[i] >= 'a' && ch[i] <= 'z')||(ch[i] >= 'A' && ch[i] <= 'Z')||ch[i]==' '){
-	    			 result += ch[i];
-	    		 }else{
-	    			 result += " ";
-	    		 }
-	    	 }  
-	    	 text_user.setText(Lab1_Pair.generateNewText(result));
-	    	 //System.out.print(text.getText());  
-	      }
-   }    
+	public void actionPerformed(ActionEvent e) {   
+	     if(e.getSource() == tb) {
+		    	 String temp;
+		    	 temp = text.getText().replaceAll("[^a-zA-Z]"," ");
+		    	 text_user.setText(Lab1_Pair.generateNewText(temp));
+		    	 //System.out.print(text.getText());  
+	     }
+	}
 }
-//¼ÆËã×î¶ÌÂ·¾¶
+
+//è®¡ç®—æœ€çŸ­è·¯å¾„
 class CalShortestPath extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
-	private JTextArea text_user;                                //ÎÄ±¾Çø    
+	private JTextArea text_user;	//æ–‡æœ¬åŒº    
     private JScrollPane scrollPane; 
-    private TextField word1;
-    private TextField word2;
-    JButton submit = new JButton("²éÑ¯"); 
+    private TextField word1,word2;
+    
+    JButton submit = new JButton("æŸ¥è¯¢");
 	private Font font1;
 	private Font font2;
 	OutputStreamWriter os = null;
 	picDisplayPanel picPanel;
+	
     public CalShortestPath(){
-    	super("¼ÆËã×î¶ÌÂ·¾¶");
-    	this.setSize(1400,795);
-		this.setLocationRelativeTo(null);        
+	    	super("è®¡ç®—æœ€çŸ­è·¯å¾„");
+	    	this.setSize(1400,795);
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		text_user = new JTextArea("",19,33);   
-        text_user.setEditable(false); 
-        text_user.setLineWrap(true);
-        text_user.setWrapStyleWord(true);
-        font1 = new Font("SansSerif",Font.BOLD,16);
+		text_user = new JTextArea("",19,33);
+	    text_user.setEditable(false); 
+	    text_user.setLineWrap(true);
+	    text_user.setWrapStyleWord(true);
+	    font1 = new Font("SansSerif",Font.BOLD,16);
 		font2 = new Font("Serif",Font.BOLD,25);
-        scrollPane = new JScrollPane(text_user,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //text_user.setText(FirstPage.showmessage());
-        word1 = new TextField(18);  
-        word2 = new TextField(18);
-        submit.setFont(font1);
-        text_user.setFont(font2);
-        word1.setFont(font1);
-        word2.setFont(font1);
+	    scrollPane = new JScrollPane(text_user,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    
+	    //text_user.setText(FirstPage.showmessage());
+	    word1 = new TextField(18);  
+	    word2 = new TextField(18);
+	    submit.setFont(font1);
+	    text_user.setFont(font2);
+	    word1.setFont(font1);
+	    word2.setFont(font1);
+	    JPanel MPanel = new JPanel(new GridLayout()); 
+		JPanel RightPanel = new JPanel();
 		picPanel = new picDisplayPanel();
 		picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\out.gif");
 		JScrollPane sp = new JScrollPane(picPanel);
 		sp.validate();
-        JPanel MPanel = new JPanel(new GridLayout()); 
 		MPanel.add(sp);
-		JPanel RightPanel = new JPanel();
+		
 		RightPanel.add(scrollPane);
 		RightPanel.add(word1);
 		RightPanel.add(word2);
 		RightPanel.add(submit);
 		MPanel.add(RightPanel);
 		this.add(MPanel);
-        submit.addActionListener(this);
-        setJMenuBar(new MenuBar().menuBar());
-    }
-    //½«×î¶ÌÂ·¾¶ÒÔÍ»³öµÄ·½Ê½ÏÔÊ¾ÔÚÍ¼ÖĞ
+	    submit.addActionListener(this);
+	    setJMenuBar(new MenuBar().menuBar());
+	}
+    
+    //å°†æœ€çŸ­è·¯å¾„ä»¥çªå‡ºçš„æ–¹å¼æ˜¾ç¤ºåœ¨å›¾ä¸­
     public void showDirectedGraph_2word(){
 		GraphViz gv = new GraphViz();
         gv.addln(gv.start_graph());
         String[] color = {"red","deepskyblue","cyan","gold","green","blue","brown","springgreen","tomato","violet","violetred"};
+        
         for(int i = 0;i < Lab1_Pair.vertexNum;i++){
-        	Edge p = Lab1_Pair.head[i].adjacent;
-        	while(p != null){
-        		gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+"];");
-        		p = p.link;
-        	}
+	        	Edge p = Lab1_Pair.head[i].adjacent;
+	        	while(p != null){
+	        		gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+"];");
+	        		p = p.link;
+	        	}
         }
+        
         try{
 	        for(int i = 0;i < Lab1_Pair.waypoint.size();i++){
-	        	for(int j = 0;j< Lab1_Pair.waypoint.get(i).size()-1;j++){
-	        		gv.addln(Lab1_Pair.head[Lab1_Pair.waypoint.get(i).get(j)].Name+"->"+Lab1_Pair.head[Lab1_Pair.waypoint.get(i).get(j+1)].Name+"[color="+color[i]+"];");
-	        	}
+		        	for(int j = 0;j< Lab1_Pair.waypoint.get(i).size()-1;j++){
+		        		gv.addln(Lab1_Pair.head[Lab1_Pair.waypoint.get(i).get(j)].Name+"->"+Lab1_Pair.head[Lab1_Pair.waypoint.get(i).get(j+1)].Name+"[color="+color[i]+"];");
+		        	}
 	        }
-        }catch(Exception e){
-        	e.printStackTrace();
-        }
+        }catch(Exception e) {}
+        
         gv.addln(gv.end_graph());
         //System.out.println(gv.getDotSource());
         String type = "gif";
         File out = new File(Lab1_Pair.pathtext+"\\outCSP." + type);
-        gv.writeGraphToFile( gv.getGraph( gv.getDotSource(), type ), out );
+        gv.writeGraphToFile(gv.getGraph(gv.getDotSource(),type),out);
     }
+    
     @Override
-    public void actionPerformed(ActionEvent e){
-		if (e.getSource() == submit){
+    public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == submit) {
 			String path = "";
 			if(!word1.getText().isEmpty() && !word2.getText().isEmpty()){
 				//text_user.setText(word1.getText()+word2.getText());
 				path = Lab1_Pair.calcShortestPath(word1.getText(),word2.getText());
 				showDirectedGraph_2word();
-			}else if(word1.getText().isEmpty() && !word2.getText().isEmpty() || !word1.getText().isEmpty() && word2.getText().isEmpty()){
+			}
+			else if(word1.getText().isEmpty() && !word2.getText().isEmpty() || !word1.getText().isEmpty() && word2.getText().isEmpty()){
 				//text_user.setText(word1.getText()+word2.getText());
 				path = Lab1_Pair.calcShortestPath_Oneword(word1.getText()+word2.getText());
 			}
+			
 			//try{os.write(path);os.close();}
    		 	//catch(IOException e1){System.out.print("Exception");}
 			text_user.setText(path);
-	    	//try{os.write(path);os.close();}
-	    	//catch(IOException e1){System.out.print("Exception");}
+			
+			//try{os.write(path);os.close();}
+	    		//catch(IOException e1){System.out.print("Exception");}
 			picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outCSP.gif");
-		}		  
+		}
     }
 }
-//Ëæ»úÓÎ×ß
-class RandomWalk extends JFrame implements ActionListener{
+//éšæœºæ¸¸èµ°
+class RandomWalk extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JTextArea text_user;
 	private JScrollPane scrollPane;
 	JButton next = new JButton("Next");
 	JButton stop = new JButton("Stop");
 	JButton reset = new JButton("Reset");
+	
 	//Lab1_Pair lab1 = new Lab1_Pair();
 	String[] str1;
 	public String string = "";
@@ -614,11 +655,13 @@ class RandomWalk extends JFrame implements ActionListener{
 	JLabel blank2 = new JLabel("  ");
 	OutputStreamWriter os = null;
 	picDisplayPanel picPanel;
+	
 	public RandomWalk(){
-    	super("Ëæ»úÓÎ×ß");
-    	this.setSize(1400,795);
+    		super("éšæœºæ¸¸èµ°");
+    		this.setSize(1400,795);
 		this.setLocationRelativeTo(null);         //set the frame container
 		this.setResizable(false);
+		
 		text_user = new JTextArea("",19,33);   
         text_user.setEditable(false);
         text_user.setLineWrap(true);
@@ -626,14 +669,16 @@ class RandomWalk extends JFrame implements ActionListener{
         font1 = new Font("SansSerif",Font.BOLD,16);
 		font2 = new Font("Serif",Font.BOLD,25);  
         text_user.setFont(font2);
+        
         scrollPane = new JScrollPane(text_user,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);   
+        JPanel MPanel = new JPanel(new GridLayout()); 
+		JPanel RightPanel = new JPanel();
 		picPanel = new picDisplayPanel();
 		picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\out.gif");
 		JScrollPane sp = new JScrollPane(picPanel);
+		
 		sp.validate();
-        JPanel MPanel = new JPanel(new GridLayout()); 
 		MPanel.add(sp);
-		JPanel RightPanel = new JPanel();
 		RightPanel.add(scrollPane);
 		RightPanel.add(next);
 		RightPanel.add(this.blank1);
@@ -642,100 +687,96 @@ class RandomWalk extends JFrame implements ActionListener{
 		RightPanel.add(reset);
 		MPanel.add(RightPanel);
 		this.add(MPanel);
+		
         next.setFont(font1);
         stop.setFont(font1);
         reset.setFont(font1);
         next.addActionListener(this);
         stop.addActionListener(this);
         reset.addActionListener(this);
-        /*try{os = new OutputStreamWriter(new FileOutputStream("datarandom.txt"));}
-		catch(IOException e){}*/
+
         setJMenuBar(new MenuBar().menuBar());
     }
+	
 	public void showpath(){
 		str1 = Lab1_Pair.randomWalk().split(" ");
 		//System.out.print(str1[0]);
 	}
-	public boolean findNode(String word1,String word2,int num){
-		for(int i = 0;i < num-1;i++){
-			if(str1[i].equals(word1)&&str1[i+1].equals(word2)){
+	
+	public boolean findNode(String word1,String word2,int num) {
+		for (int i = 0;i < num-1;i++) {
+			if (str1[i].equals(word1)&&str1[i+1].equals(word2)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	//½«Ëæ»úÓÎ×ßµÄÂ·¾¶ÒÔÍ»³öµÄ·½Ê½Õ¹Ê¾ÔÚÍ¼ÖĞ
-	public void showDirectedGraph(int num){
+	
+	//å°†éšæœºæ¸¸èµ°çš„è·¯å¾„ä»¥çªå‡ºçš„æ–¹å¼å±•ç¤ºåœ¨å›¾ä¸­
+	public void showDirectedGraph(int num) {
 		GraphViz gv = new GraphViz();
         gv.addln(gv.start_graph());
         for(int i = 0;i < Lab1_Pair.vertexNum;i++){
-        	Edge p = Lab1_Pair.head[i].adjacent;
-        	while(p != null){
-        		if(findNode(Lab1_Pair.head[i].Name,p.Name,num)){
-        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+",color=red];");
-        		}else{
-        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+"];");
-        		}
-        		p = p.link;
-        	}
+        		Edge p = Lab1_Pair.head[i].adjacent;
+	        	while(p != null) {
+	        		if (findNode(Lab1_Pair.head[i].Name,p.Name,num)) {
+	        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+",color=red];");
+	        		}
+	        		else {
+	        			gv.addln(Lab1_Pair.head[i].Name+"->"+p.Name+"[label="+p.cost+"];");
+	        		}
+	        		p = p.link;
+	        	}
         }
         gv.addln(gv.end_graph());
         //System.out.println(gv.getDotSource());
+        
         String type = "gif";
         File out = new File(Lab1_Pair.pathtext+"/outRDW." + type);
-        gv.writeGraphToFile( gv.getGraph( gv.getDotSource(), type ), out );
+        gv.writeGraphToFile(gv.getGraph(gv.getDotSource(),type),out);
 	}
+	
 	@Override
-	public void actionPerformed(ActionEvent e){
-	     if(e.getSource() == next){
-	    	 if(!flag&&!str1[0].equals("0")){
-	    		 if(step == 0){
-		    		 string += (str1[step++]);
-		    		 text_user.setText(string);
-		    	 }else if(step < str1.length){
-		    		 string += ("->"+str1[step++]);
-		    		 text_user.setText(string);
-		    		 showDirectedGraph(step);
-		    		 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outRDW.gif");
-		    	 }else{
-		    		 try{
-		    			 os = new OutputStreamWriter(new FileOutputStream("datarandom.txt"));
-		    		 os.write(string);
-		    		 os.close();
-		    		 }catch(IOException e1){
-		    			 e1.printStackTrace();
-		    		 }
-		    		 string += "\nÒÑµ½Â·µÄ¾¡Í·£¡£¡£¡";
-		    		 text_user.setText(string);
-		    		 flag = true;
-		    		 /*showDirectedGraph(step);
-		    		 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outRDW.gif");*/
+	public void actionPerformed(ActionEvent e) {
+	     if (e.getSource() == next) {
+		    	 if (!flag&&!str1[0].equals("0")) {
+		    		 if(step == 0) {
+			    		 string += (str1[step++]);
+			    		 text_user.setText(string);
+			    	 } else if(step < str1.length){
+			    		 string += ("->"+str1[step++]);
+			    		 text_user.setText(string);
+			    		 showDirectedGraph(step);
+			    		 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outRDW.gif");
+			    	 } else{
+			    		 try{os = new OutputStreamWriter(new FileOutputStream("datarandom.txt"));
+			    		 os.write(string);os.close();}
+			    		 catch(IOException e1){}
+			    		 string += "\nå·²åˆ°è·¯çš„å°½å¤´ï¼ï¼ï¼";
+			    		 text_user.setText(string);
+			    		 flag = true;
+			    		 /*showDirectedGraph(step);
+			    		 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outRDW.gif");*/
+			    	 }
+		    	 } else if (!flag) {
+		    		 text_user.setText("è¯·å…ˆç”Ÿæˆå›¾ï¼Œå†é€‰ç”¨æ­¤åŠŸèƒ½ï¼ï¼ï¼");
 		    	 }
-	    	 }else if(!flag){
-	    		 text_user.setText("ÇëÏÈÉú³ÉÍ¼£¬ÔÙÑ¡ÓÃ´Ë¹¦ÄÜ£¡£¡£¡");
-	    	 }
-	     }else if(e.getSource() == stop){
-	    	 flag = true;
-	    	 try{
-	    		 os = new OutputStreamWriter(new FileOutputStream("datarandom.txt"));
-    		 os.write(string);
-    		 os.close();
-    		 }catch(IOException e1){
-    			 e1.printStackTrace();
-    		 }
-	    	 /*showDirectedGraph(step);
-	    	 picDisplayPanel.setPic(Lab1_Pair.pathtext+"\\outRDW.gif");*/
-	     }else if(e.getSource() == reset){
-	    	 showpath();
-	    	 flag = false;
-	    	 step = 0;
-	    	 string = "";
-	    	 text_user.setText(string);
+	     } else if(e.getSource() == stop) {
+		    	 flag = true;
+		    	 try{os = new OutputStreamWriter(new FileOutputStream("datarandom.txt"));
+	    		 os.write(string);os.close();}
+	    		 catch(IOException e1){}
+	     } else if(e.getSource() == reset){
+		    	 showpath();
+		    	 flag = false;
+		    	 step = 0;
+		    	 string = "";
+		    	 text_user.setText(string);
 	     }
    }
 }
-//Õ¹Ê¾Í¼Æ¬Panel
-class picDisplayPanel extends JPanel{
+//å±•ç¤ºå›¾ç‰‡Panel
+class picDisplayPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public static JLabel picLabel;
 	public static int WIDTH;
@@ -743,12 +784,14 @@ class picDisplayPanel extends JPanel{
 	public static ImageIcon pic;
 	boolean isAltDown = false;
 	int percent = 100;
-	public picDisplayPanel(){
+	
+	public picDisplayPanel() {
 		picLabel = new JLabel();
 		setBackground(Color.WHITE);
 		add(picLabel);
 	}
-	public static void setPic(String path){
+	
+	public static void setPic(String path) {
 		try {
 			pic = new ImageIcon(ImageIO.read(new File(path)));
 			WIDTH = pic.getIconWidth();
@@ -756,10 +799,11 @@ class picDisplayPanel extends JPanel{
 			picLabel.setIcon(pic);
 			picLabel.repaint();
 		} catch (Exception e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 			//e.printStackTrace();
 		}
 	}
+	
 	public static void changeSize(int percent){
 		pic.setImage(pic.getImage().getScaledInstance(percent * WIDTH, percent * HEIGHT, Image.SCALE_DEFAULT));
 		picLabel.setIcon(pic);

@@ -10,107 +10,103 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import software_engineering.GraphViz;
+import java.util.Random;
 
-/** ¶ÁÈ¡Ô­Ê¼ÎÄ¼ş£¬²¢½«Æä×ª»¯Îª±ê×¼ÎÄ¼şdata.txt */
-class ReadFile
-{
-	public void transformFile(String string)
-	{
-		try
-		{
-			InputStream is = new FileInputStream(string);
-			OutputStream os = new FileOutputStream("data.txt");
+/** è¯»å–åŸå§‹æ–‡ä»¶ï¼Œå¹¶å°†å…¶è½¬åŒ–ä¸ºæ ‡å‡†æ–‡ä»¶data.txt */
+class ReadFile {
+	public void transformFile(String string) {
+		InputStream is = null;
+		OutputStream os = null;
+		try {
+			is = new FileInputStream(string);
+			os = new FileOutputStream("data.txt");
 			int size = is.available();
 			char str;
 			boolean flag = true;
-			for (int i = 0; i < size; i++)
-			{
+			for (int i = 0; i < size; i++) {
 				str = (char) is.read();
-				if (str >= 'a' && str <= 'z')
-				{
+				if (str >= 'a' && str <= 'z') {
 					os.write(str);
 					flag = true;
-				} else if (str >= 'A' && str <= 'Z')
-				{
+				} else if (str >= 'A' && str <= 'Z') {
 					os.write((char) (str + 32));
 					flag = true;
-				} else
-				{
-					if (flag && str == ' ')
-					{
+				} else {
+					if (flag && str == ' ') {
 						os.write(str);
 						flag = false;
-					} else
-					{
-						if (flag)
-						{
+					} else {
+						if (flag) {
 							os.write(' ');
 							flag = false;
 						}
 					}
 				}
 			}
-			is.close();
-			os.close();
-		} catch (IOException e)
-		{
-			// System.out.print("Exception");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (is != null) {
+					is.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				if (os != null) {
+					os.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
 
-// Í¼µÄ±ß½áµãÀà
-class Edge
-{
-	/** ÁÚ½Ó¶¥µãĞòºÅ */
+// å›¾çš„è¾¹ç»“ç‚¹ç±»
+class Edge {
+	/** é‚»æ¥é¡¶ç‚¹åºå· */
 	protected int verAdj;
-	/** ÁÚ½Ó¶¥µãÃû³Æ */
+	/** é‚»æ¥é¡¶ç‚¹åç§° */
 	protected String Name;
-	/** ±ßµÄÈ¨Öµ */
+	/** è¾¹çš„æƒå€¼ */
 	protected int cost;
-	/** ÏÂÒ»¸ö±ß½áµã */
+	/** ä¸‹ä¸€ä¸ªè¾¹ç»“ç‚¹ */
 	protected Edge link;
 }
 
-// ¶¥µã±íÖĞµÄ½áµãÀà
-class Vertex
-{
-	/** ¶¥µãĞòºÅ */
+// é¡¶ç‚¹è¡¨ä¸­çš„ç»“ç‚¹ç±»
+class Vertex {
+	/** é¡¶ç‚¹åºå· */
 	protected int verName;
-	/** ¶¥µãÃû³Æ **/
+	/** é¡¶ç‚¹åç§° **/
 	protected String Name;
-	/** ±ßÁ´±íµÄÍ·Ö¸Õë */
+	/** è¾¹é“¾è¡¨çš„å¤´æŒ‡é’ˆ */
 	protected Edge adjacent;
 }
 
-/** ÒÔÁÚ½Ó±íµÄĞÎÊ½´æ´¢Í¼½á¹¹ */
-class Graph
-{
-	/** Ö¸Ïò¶¥µã±íµÄÒıÓÃ */
+/** ä»¥é‚»æ¥è¡¨çš„å½¢å¼å­˜å‚¨å›¾ç»“æ„ */
+class Graph {
+	/** æŒ‡å‘é¡¶ç‚¹è¡¨çš„å¼•ç”¨ */
 	public Vertex[] head;
-	/* µ±Ç°¶¥µãµÄ¸öÊı */
+	/* å½“å‰é¡¶ç‚¹çš„ä¸ªæ•° */
 	private int vertexNum;
-	/* ÎÄ¼şÂ·¾¶ */
+	/* æ–‡ä»¶è·¯å¾„ */
 	private String str;
-	/** ¹¹Ôì·½·¨ */
-	Lab1_Pair lab1 = new Lab1_Pair();
 
-	public Graph(String string)
-	{
+	public Graph(String string) {
 		this.str = string;
 	}
 
-	public int buildGraph()
-	{
-		try
-		{
-			InputStream is = new FileInputStream(this.str);
+	public int buildGraph() {
+		InputStream is = null;
+		try {
+			is = new FileInputStream(this.str);
 			int size = is.available();
 			this.vertexNum = size;
 			this.head = new Vertex[this.vertexNum];
-			for (int i = 0; i < this.vertexNum; i++)
-			{
+			for (int i = 0; i < this.vertexNum; i++) {
 				head[i] = new Vertex();
 				head[i].verName = i;
 				head[i].adjacent = null;
@@ -118,87 +114,80 @@ class Graph
 			}
 			int charnum = this.vertexNum;
 			// System.out.println(i);
-			String string1;
-			string1 = "";
+			StringBuffer string1= new StringBuffer();
 			char str1 = (char) is.read();
-			while (str1 == ' ')
-			{
+			while (str1 == ' ') {
 				str1 = (char) is.read();
 				charnum -= 1;
 			}
 			charnum -= 1;
-			while (str1 != ' ')
-			{
-				string1 += str1;
+			while (str1 != ' ') {
+				string1.append(str1);
 				str1 = (char) is.read();
 				charnum -= 1;
 			}
 			int num = 0;
-			head[num++].Name = string1;
-			while (charnum > 0)
-			{
-				String string2 = "";
+			head[num++].Name = string1.toString();
+			while (charnum > 0) {
+				StringBuffer string2 = new StringBuffer();
 				str1 = (char) is.read();
 				charnum -= 1;
-				while (str1 != ' ' && charnum >= 0)
-				{
-					string2 += str1;
+				while (str1 != ' ' && charnum >= 0) {
+					string2.append(str1);
 					str1 = (char) is.read();
 					charnum -= 1;
 				}
-				for (int j = 0; j < this.vertexNum; j++)
-				{
-					if (head[j].Name.equals(string1))
-					{
+				for (int j = 0; j < this.vertexNum; j++) {
+					if (head[j].Name.equals(string1.toString())) {
 						Edge q = head[j].adjacent;
 						Edge qr = null;
-						while (q != null)
-						{
-							if (q.Name.equals(string2))
-							{
+						while (q != null) {
+							if (q.Name.equals(string2.toString())) {
 								q.cost += 1;
 								break;
 							}
 							qr = q;
 							q = q.link;
 						}
-						if (q == null)
-						{
+						if (q == null) {
 							Edge p = new Edge();
 							// p.verAdj = num;
-							p.Name = string2;
+							p.Name = string2.toString();
 							p.cost = 1;
 							p.link = null;
-							if (qr == null)
+							if (qr == null) {
 								head[j].adjacent = p;
-							else
-							{
+							}
+							else {
 								p.link = head[j].adjacent;
 								head[j].adjacent = p;
 							}
-							int n = findVertex(string2);
-							if (n == -1)
-							{
+							int n = findVertex(string2.toString());
+							if (n == -1) {
 								p.verAdj = num;
-								head[num++].Name = string2;
+								head[num++].Name = string2.toString();
 							} else
 								p.verAdj = n;
-
 						}
 						break;
 					}
 				}
 				string1 = string2;
 			}
-			is.close();
 			// System.out.println("finished!!!");
-		} catch (IOException e)
-		{
-			// System.out.print("Exception");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (is != null) {
+					is.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		int a = 0;
-		for (int i = 0; i < vertexNum && !head[i].Name.equals("!"); i++)
-		{
+		for (int i = 0; i < vertexNum && !head[i].Name.equals("!"); i++) {
 			a += 1;
 		}
 		this.vertexNum = a;
@@ -206,16 +195,14 @@ class Graph
 		return this.vertexNum;
 	}
 
-	/** Õ¹Ê¾ÓĞÏòÍ¼ */
+	/** å±•ç¤ºæœ‰å‘å›¾ */
 	public void showDirectedGraph()
 	{
 		GraphViz gv = new GraphViz();
 		gv.addln(gv.start_graph());
-		for (int i = 0; i < this.vertexNum; i++)
-		{
+		for (int i = 0; i < this.vertexNum; i++) {
 			Edge p = this.head[i].adjacent;
-			while (p != null)
-			{
+			while (p != null) {
 				gv.addln(this.head[i].Name + "->" + p.Name + "[label=" + p.cost + "];");
 				p = p.link;
 			}
@@ -228,88 +215,75 @@ class Graph
 		gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type), out);
 	}
 
-	public int findVertex(String str)
-	{
-		for (int i = 0; i < this.vertexNum; i++)
-		{
-			if (head[i].Name.equals(str))
-			{
+	public int findVertex(String str) {
+		for (int i = 0; i < this.vertexNum; i++) {
+			if (head[i].Name.equals(str)) {
 				return i;
 			}
-			if (head[i].Name.equals("!"))
+			if (head[i].Name.equals("!")) {
 				break;
+			}
 		}
 		return -1;
 	}
 
-	public void printGraph()
-	{
-		for (int i = 0; i < this.vertexNum; i++)
-		{
-			if (!head[i].Name.equals("!"))
-			{
+	public void printGraph() {
+		for (int i = 0; i < this.vertexNum; i++) {
+			if (!head[i].Name.equals("!")) {
 				System.out.print(head[i].Name + ":");
 				Edge p = head[i].adjacent;
-				while (p != null)
-				{
+				while (p != null) {
 					System.out.print(p.Name + "(" + p.cost + ")" + " ");
 					p = p.link;
 				}
 				System.out.print("\n");
-			} else
+			} else {
 				break;
+			}
 		}
 	}
 }
 
-class BFS
-{
-	/** Ö¸Ïò¶¥µã±íµÄÒıÓÃ */
+class BFS {
+	/** æŒ‡å‘é¡¶ç‚¹è¡¨çš„å¼•ç”¨ */
 	private Vertex[] head;
-	/* µ±Ç°¶¥µãµÄ¸öÊı */
+	/* å½“å‰é¡¶ç‚¹çš„ä¸ªæ•° */
 	private int vertexNum;
 
-	public BFS(Vertex[] H, int num)
-	{
+	BFS(Vertex[] H, int num) {
 		this.head = H;
 		this.vertexNum = num;
 	}
 
-	// µÃµ½µÚÒ»¸öÁÚ½Ó½áµãµÄÏÂ±ê
-	public int getFirstNeighbor(int index)
-	{
-		if (head[index].adjacent != null)
-		{
+	// å¾—åˆ°ç¬¬ä¸€ä¸ªé‚»æ¥ç»“ç‚¹çš„ä¸‹æ ‡
+	int getFirstNeighbor(int index) {
+		if (head[index].adjacent != null) {
 			return head[index].adjacent.verAdj;
 		}
 		return -1;
 	}
 
-	// Ë½ÓĞº¯Êı£¬¹ã¶ÈÓÅÏÈ±éÀú
-	private String[] broadFirstSearch(boolean[] isVisited, int i, String destination)
-	{
+	// ç§æœ‰å‡½æ•°ï¼Œå¹¿åº¦ä¼˜å…ˆéå†
+	private String[] broadFirstSearch(boolean[] isVisited, int i, String destination) {
 		int u;
 		int flag = 0;
 		String[] str;
 		LinkedList<Integer> queue = new LinkedList<Integer>();
-		// ·ÃÎÊ½áµãi
+		// è®¿é—®ç»“ç‚¹i
 		// System.out.print(getValueByIndex(i)+" ");
 		isVisited[i] = true;
-		// ½áµãÈë¶ÓÁĞ
+		// ç»“ç‚¹å…¥é˜Ÿåˆ—
 		// queue.addLast(i);
 		// w = getFirstNeighbor(i);
 		Edge p = null;
 		p = head[i].adjacent;
-		if (p == null)
-		{
+		if (p == null) {
 			// System.out.println("No bridge words from word1 to word2!");
 			str = new String[1];
 			str[0] = "0";
 			return str;
-		} else
-		{
-			while (p != null)
-			{
+		} else {
+			while (p != null) {
 				queue.addLast(p.verAdj);
 				isVisited[p.verAdj] = true;
 				p = p.link;
@@ -317,16 +291,12 @@ class BFS
 		}
 		str = new String[this.vertexNum];
 		int a = 0;
-		while (!queue.isEmpty())
-		{
+		while (!queue.isEmpty()) {
 			u = ((Integer) queue.removeFirst()).intValue();
 			p = head[u].adjacent;
-			while (p != null)
-			{
-				if (!isVisited[p.verAdj])
-				{
-					if (p.Name.equals(destination))
-					{
+			while (p != null) {
+				if (!isVisited[p.verAdj]) {
+					if (p.Name.equals(destination)) {
 						// System.out.println("The bridge words from word1 to
 						// word2 are:");
 						str[a++] = head[u].Name;
@@ -339,41 +309,34 @@ class BFS
 				p = p.link;
 			}
 		}
-		if (flag == 0)
-		{
+		if (flag == 0) {
 			// str = new String[1];
 			str[0] = "0";
 		}
 		return str;
 	}
 
-	// ¶ÔÍâ¹«¿ªº¯Êı£¬¹ã¶ÈÓÅÏÈ±éÀú
-	public String[] broadFirstSearch(String word1, String word2)
-	{
+	// å¯¹å¤–å…¬å¼€å‡½æ•°ï¼Œå¹¿åº¦ä¼˜å…ˆéå†
+	String[] broadFirstSearch(String word1, String word2) {
 		boolean[] isVisited = new boolean[this.vertexNum];
 		String[] str;
 		for (int i = 0; i < this.vertexNum; i++)
 			isVisited[i] = false;
-		for (int i = 0; i < this.vertexNum; i++)
-		{
+		for (int i = 0; i < this.vertexNum; i++) {
 			if (head[i].Name.equals(word2))
 				break;
-			else if (head[i].Name.equals("!"))
-			{
+			else if (head[i].Name.equals("!")) {
 				// System.out.println("No word1 or word2 in the graph!");
 				str = new String[1];
 				str[0] = "-1";
 				return str;
 			}
 		}
-		for (int i = 0; i < this.vertexNum; i++)
-		{
-			if (!isVisited[i] && head[i].Name.equals(word1))
-			{
+		for (int i = 0; i < this.vertexNum; i++) {
+			if (!isVisited[i] && head[i].Name.equals(word1)) {
 				str = broadFirstSearch(isVisited, i, word2);
 				return str;
-			} else if (head[i].Name.equals("!"))
-			{
+			} else if (head[i].Name.equals("!")) {
 				// System.out.println("No word1 or word2 in the graph!");
 				break;
 			}
@@ -384,14 +347,12 @@ class BFS
 	}
 }
 
-class Node
-{
-	protected int id;
-	protected int d;
+class Node {
+	int id;
+	int d;
 }
 
-class Dij
-{
+class Dij {
 	private static int INF = 9999;
 	ArrayList<Integer>[] prev;
 	int size;
@@ -400,15 +361,13 @@ class Dij
 	boolean[] flag;
 
 	@SuppressWarnings("unchecked") // ***
-	public Dij(int vertexNum)
-	{
+	public Dij(int vertexNum) {
 		size = vertexNum;
 		prev = new ArrayList[size];
 		flag = new boolean[size];
 		dist = new Node[size];
 		// System.out.println(dist.length);
-		for (int i = 0; i < size; i++)
-		{
+		for (int i = 0; i < size; i++) {
 			prev[i] = new ArrayList<Integer>();
 			prev[i].add(-1);
 			flag[i] = false;
@@ -416,22 +375,18 @@ class Dij
 			dist[i].id = i;
 			dist[i].d = INF;
 		}
-		queue = new PriorityQueue<Node>(size, new Comparator<Node>()
-		{
-			public int compare(Node n1, Node n2)
-			{
+		queue = new PriorityQueue<Node>(size, new Comparator<Node>() {
+			public int compare(Node n1, Node n2) {
 				return n1.d - n2.d;
 			}
 		});
 	}
 
-	public void dijkstra(int s, Vertex[] head)
-	{
+	public void dijkstra(int s, Vertex[] head) {
 		// System.out.println(G.head.length);
 		dist[s].d = 0;
 		queue.add(dist[s]);
-		while (queue.peek() != null)
-		{
+		while (queue.peek() != null) {
 			Node temp = queue.poll();
 			Edge p = head[temp.id].adjacent;
 			int u = temp.id;
@@ -440,53 +395,41 @@ class Dij
 				continue;
 			flag[u] = true;
 
-			while (p != null)
-			{
+			while (p != null) {
 				int tempid = p.verAdj;
 				int tempcost = p.cost;
-				if (!flag[tempid])
-				{
-					if (dist[tempid].d > dist[u].d + tempcost)
-					{
+				if (!flag[tempid]) {
+					if (dist[tempid].d > dist[u].d + tempcost) {
 						dist[tempid].d = dist[u].d + tempcost;
 						prev[tempid].clear();
 						prev[tempid].add(u);
 						queue.add(dist[tempid]);
-					} else if (dist[tempid].d == dist[u].d + tempcost)
-					{
+					} else if (dist[tempid].d == dist[u].d + tempcost) {
 						prev[tempid].add(u);
 					}
 				}
-
 				p = p.link;
 			}
 		}
 	}
 
-	public ArrayList<ArrayList<Integer>> findpath(int beg, int end)
-	{
-		ArrayList<ArrayList<Integer>> childPaths = new ArrayList<ArrayList<Integer>>();
-		ArrayList<ArrayList<Integer>> midPaths = new ArrayList<ArrayList<Integer>>();
-		if (beg != end)
-		{
-			for (int i = 0; i < prev[end].size(); i++)
-			{
+	public ArrayList<ArrayList<Integer>> findpath(int beg, int end) {
+		ArrayList<ArrayList<Integer>> childPaths = null;
+		ArrayList<ArrayList<Integer>> midPaths = new ArrayList<>();
+		if (beg != end) {
+			for (int i = 0; i < prev[end].size(); i++) {
 				childPaths = findpath(beg, prev[end].get(i));
-				for (int j = 0; j < childPaths.size(); j++)
-				{
+				for (int j = 0; j < childPaths.size(); j++) {
 					childPaths.get(j).add(end);
 				}
-				if (midPaths.size() == 0)
-				{
+				if (midPaths.size() == 0) {
 					midPaths = childPaths;
-				} else
-				{
+				} else {
 					midPaths.addAll(childPaths);
 				}
 			}
-		} else
-		{
-			ArrayList<Integer> temp = new ArrayList<Integer>(1);
+		} else {
+			ArrayList<Integer> temp = new ArrayList<>(1);
 			temp.add(beg);
 			midPaths.add(temp);
 		}
@@ -494,52 +437,46 @@ class Dij
 	}
 }
 
-public class Lab1_Pair
-{
-	public static String pathtext = System.getProperty("user.dir");
-	/** Ö¸Ïò¶¥µã±íµÄÒıÓÃ */
+public class Lab1_Pair {
+	public static final String pathtext = System.getProperty("user.dir");
+	/** æŒ‡å‘é¡¶ç‚¹è¡¨çš„å¼•ç”¨ */
 	public static Vertex[] head;
-	/* µ±Ç°¶¥µãµÄ¸öÊı */
+	/* å½“å‰é¡¶ç‚¹çš„ä¸ªæ•° */
 	public static int vertexNum;
 	private static String[] str;
 	private static boolean flag = false;
 	public static ArrayList<ArrayList<Integer>> waypoint;
 
-	public static void main(String args[])
-	{
-		login loginframe = new login();
+	public static void main(String args[]) {
+		Login loginframe = new Login();
 		loginframe.run();
 		// loginframe.setVisible(true);
 		// System.out.println(System.getProperty("user.dir"));
 	}
 
-	/** ²éÑ¯ÇÅ½Ó´Ê */
-	public static String queryBridgeWords(String word1, String word2)
-	{
-		String str_ = "";
+	/** æŸ¥è¯¢æ¡¥æ¥è¯ */
+	public static String queryBridgeWords(String word1, String word2) {
+		StringBuffer str_ = new StringBuffer();
 		word1 = word1.toLowerCase();
 		// if(str2[0] >= 'A'&&str2[0] <='Z')
 		word2 = word2.toLowerCase();
 		BFS bfsSearch = new BFS(head, vertexNum);
 		str = bfsSearch.broadFirstSearch(word1, word2);
 		if (str[0].equals("-1") && !flag)
-			str_ = "-1";
+			str_.append("-1");
 		else if (str[0].equals("0") && !flag)
-			str_ = "0";
-		else if (!flag)
-		{
+			str_.append("0");
+		else if (!flag) {
 			// System.out.println("The bridge words from word1 to word2 are:");
-			for (int i = 0; i < str.length && str[i] != null; i++)
-			{
-				str_ += (str[i] + " ");
+			for (int i = 0; i < str.length && str[i] != null; i++) {
+				str_.append(str[i] + " ");
 			}
 		}
-		return str_;
+		return str_.toString();
 	}
 
-	/** ¸ù¾İbridge word Éú³ÉĞÂÎÄ±¾ */
-	public static String generateNewText(String inputText)
-	{
+	/** æ ¹æ®bridge word ç”Ÿæˆæ–°æ–‡æœ¬ */
+	public static String generateNewText(String inputText) {
 		String[] str1 = inputText.split(" ");
 		// boolean Flag = false;
 		/*
@@ -550,128 +487,118 @@ public class Lab1_Pair
 		int j = 0;
 		flag = true;
 		int i;
-		for (i = 0; i < str1.length - 1; i++)
-		{
+		for (i = 0; i < str1.length - 1; i++) {
 			queryBridgeWords(str1[i].toLowerCase(), str1[i + 1].toLowerCase());
-			if (str[0].equals("0") || str[0].equals("-1"))
-			{
+			if (str[0].equals("0") || str[0].equals("-1")) {
 				str2[j++] = str1[i];
 				// str2[j++] = str1[i+1];
-			} else
-			{
+			} else {
 				str2[j++] = str1[i];
 				str2[j++] = str[0];
 			}
 		}
 		flag = false;
 		str2[j] = str1[i];
-		String string = "";
-		for (i = 0; i < str2.length && str2[i] != null; i++)
-		{
-			string += str2[i];
-			string += " ";
+		StringBuffer string = new StringBuffer();
+		for (i = 0; i < str2.length && str2[i] != null; i++) {
+			string.append(str2[i]);
+			string.append(" ");
 		}
-		return string;
+		return string.toString();
 	}
 
-	/** ¼ÆËãÁ½¸öµ¥´ÊÖ®¼äµÄ×î¶ÌÂ·¾¶ */
-	public static String calcShortestPath(String word1, String word2)
-	{
-		String ans = "";
+	/** è®¡ç®—ä¸¤ä¸ªå•è¯ä¹‹é—´çš„æœ€çŸ­è·¯å¾„ */
+	public static String calcShortestPath(String word1, String word2) {
+		StringBuffer ans = new StringBuffer();
 		int w1 = -1;
 		int w2 = -1;
 		word1 = word1.toLowerCase();
 		word2 = word2.toLowerCase();
-		for (int i = 0; i < vertexNum; i++)
-		{
+		for (int i = 0; i < vertexNum; i++) {
 			if (word1.equals(head[i].Name))
 				w1 = i;
 			if (word2.equals(head[i].Name))
 				w2 = i;
 		}
 		if (w1 == -1 || w2 == -1)
-			return "ÎÄ±¾ÖĞ²»´æÔÚÊäÈëµÄÄ³¸ö´Ê";
+			return "æ–‡æœ¬ä¸­ä¸å­˜åœ¨è¾“å…¥çš„æŸä¸ªè¯";
 		Dij D = new Dij(vertexNum);
 		D.dijkstra(w1, head);
 		int INF = 9999;
-		if (D.dist[w2].d == INF)
-		{
-			ans += "²»¿É´ï";
-			return ans;
+		if (D.dist[w2].d == INF) {
+			ans.append("ä¸å¯è¾¾");
+			return ans.toString();
 		}
 		waypoint = new ArrayList<ArrayList<Integer>>();
 		waypoint = D.findpath(w1, w2);
-		for (int i = 0; i < waypoint.size(); i++)
-		{
+		for (int i = 0; i < waypoint.size(); i++) {
 			// ans += "[";
-			for (int j = 0; j < waypoint.get(i).size() - 1; j++)
-			{
-				ans += head[waypoint.get(i).get(j)].Name;
-				ans += "->";
+			for (int j = 0; j < waypoint.get(i).size() - 1; j++) {
+				ans.append(head[waypoint.get(i).get(j)].Name);
+				ans.append("->");
 			}
-			ans += head[waypoint.get(i).get(waypoint.get(i).size() - 1)].Name;
-			ans += "  " + "(length: " + D.dist[w2].d + ")\n";
+			ans.append(head[waypoint.get(i).get(waypoint.get(i).size() - 1)].Name);
+			ans.append("  " + "(length: " + D.dist[w2].d + ")\n");
 		}
-		return ans;
+		return ans.toString();
 	}
 
-	/** ¼ÆËãÒ»¸öµ¥´Êµ½ÆäËûÖ®¼äµÄ×î¶ÌÂ·¾¶ */
-	public static String calcShortestPath_Oneword(String word)
-	{
+	/** è®¡ç®—ä¸€ä¸ªå•è¯åˆ°å…¶ä»–ä¹‹é—´çš„æœ€çŸ­è·¯å¾„ */
+	public static String calcShortestPath_Oneword(String word) {
 		int wd = -1;
-		String ans = "";
+		StringBuffer ans = new StringBuffer();
 		word = word.toLowerCase();
-		for (int i = 0; i < vertexNum; i++)
-		{
+		for (int i = 0; i < vertexNum; i++) {
 			if (word.equals(head[i].Name))
 				wd = i;
 		}
-		if (wd == -1)
-			return "ÎÄ±¾ÖĞ²»´æÔÚÊäÈëµÄ´Ê";
+		if (wd == -1) {
+			return "æ–‡æœ¬ä¸­ä¸å­˜åœ¨è¾“å…¥çš„è¯";
+		}
 		Dij D = new Dij(vertexNum);
 		D.dijkstra(wd, head);
-		for (int i = 0; i < vertexNum; i++)
-		{
-			if (i == wd)
+		for (int i = 0; i < vertexNum; i++) {
+			if (i == wd) {
 				continue;
-			ans += word + "==>" + head[i].Name + ":\n";
-			ans += calcShortestPath(word, head[i].Name);
-			ans += "\n";
+			}
+			ans.append(word + "==>" + head[i].Name + ":\n");
+			ans.append(calcShortestPath(word, head[i].Name));
+			ans.append("\n");
 		}
-		return ans;
+		return ans.toString();
 	}
 
-	/** Ëæ»úÓÎ×ß */
-	public static String randomWalk()
-	{
-		int r = (int) (Math.random() * vertexNum);
-		String string = "";
+	/** éšæœºæ¸¸èµ° */
+	public static String randomWalk() {
+		Random rand = new Random();
+		int r = rand.nextInt(vertexNum);
+		StringBuffer string = new StringBuffer();
 		int[][] isVisited = new int[vertexNum][vertexNum];
-		for (int i = 0; i < vertexNum; i++)
-			for (int j = 0; j < vertexNum; j++)
+		for (int i = 0; i < vertexNum; i++) {
+			for (int j = 0; j < vertexNum; j++) {
 				isVisited[i][j] = 0;
-		try
-		{
-			string += head[r].Name;
-			string += " ";
+			}
+		}
+		try {
+			string.append(head[r].Name);
+			string.append(" ");
 			Edge p = head[r].adjacent;
-			while (p != null)
-			{ /** Ëæ»úĞÔÇ·¿¼ÂÇ */
+			while (p != null) { /** éšæœºæ€§æ¬ è€ƒè™‘ */
 				// System.out.print(head[p.verAdj].Name+" ");
-				string += head[p.verAdj].Name;
-				string += " ";
+				string.append(head[p.verAdj].Name);
+				string.append(" ");
 				if (isVisited[r][p.verAdj] == 0)
 				{
 					isVisited[r][p.verAdj] = 1;
 					r = p.verAdj;
 					p = head[p.verAdj].adjacent;
-				} else
+				} else {
 					break;
+				}
 			}
-		} catch (Exception e)
-		{
-			string = "0";
+		} catch (Exception e) {
+			string.append("0");
 		}
-		return string;
+		return string.toString();
 	}
 }

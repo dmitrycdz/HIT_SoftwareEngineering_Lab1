@@ -3,96 +3,87 @@ import java.awt.*;
 import java.awt.event.*;   
 import javax.swing.*;   
 
-public class login extends JFrame implements ActionListener   
-{      
+public class Login extends JFrame implements ActionListener {
 	  private static final long serialVersionUID = 1L;
-	  JButton b_subit =new JButton("  µÇÂ¼  ");   
-	  JButton b_reset =new JButton("  ÍË³ö  ");   
-	  JLabel blank1=new JLabel("                                                                                                                                                                                                                                                                     ");   
-	  JLabel blank2=new JLabel("                                                                                                                                                                                ");   
-	  JLabel blank3=new JLabel("      "); 
-	  JLabel blank4=new JLabel("        ");
-	  TextField loginname = new TextField ("1150310320",24);   
-	  JPasswordField password = new JPasswordField("0123456789",17);   
-	  UserJFrame userjframe = new UserJFrame();   
+	  JButton b_subit = new JButton("  ç™»å½•  ");
+	  JButton b_reset = new JButton("  é€€å‡º  ");
+	  JLabel blank1 = new JLabel("                                                                                                                                                                                                                                                                     ");   
+	  JLabel blank2 = new JLabel("                                                                                                                                                                                ");   
+	  JLabel blank3 = new JLabel("      "); 
+	  JLabel blank4 = new JLabel("        ");
+	  TextField loginname = new TextField ("1150310320",24); 
+	  JPasswordField password = new JPasswordField("0123456789",17);
+	  UserJFrame userjframe = new UserJFrame();
 	  private Font font1;
 	  private Font font2;
-	  static login loginframe = new login();  
-	  public login()   
-	  {    
-	     super("Lab1-½á¶Ô±à³Ì");       
-	     b_subit.addActionListener(this);   
-	     b_reset.addActionListener(this);   
+	  static Login loginframe = new Login();
+	  public Login() {
+	     super("Lab1-ç»“å¯¹ç¼–ç¨‹");
+	     
+	     JLabel label_1 = new JLabel("  ç”¨æˆ·å  ");
+	     JLabel label_2 = new JLabel("  å¯†ç   ");
+	     b_subit.addActionListener(this);
+	     b_reset.addActionListener(this);
 	     font1 = new Font("SansSerif",Font.BOLD,25);
 	     font2 = new Font("SansSerif",Font.BOLD,18);
-	     this.setResizable(false);   
-	     this.setSize(500,250);                 //ÉèÖÃ¿ò¼Ü³ß´ç   
-	     this.setBackground(Color.LIGHT_GRAY);     //ÉèÖÃ¿ò¼Ü±³¾°ÑÕÉ«   
-	     this.setLocation(600,300);               //¿ò¼ÜÏÔÊ¾ÔÚÆÁÄ»µÄÎ»ÖÃ   
-	     this.setLayout(new FlowLayout());        //¿ò¼ÜÁ÷²¼¾Ö£¬¾ÓÖĞ   
-	     this.add(new JLabel("                                                                                                                                                                                                               "));   
-	     JLabel label_1 = new JLabel("  ÓÃ»§Ãû  ");   
-	     this.add(label_1);           //´´½¨±êÇ©£¬Ìí¼Óµ½¿ò¼ÜÉÏ    
-	     this.add(loginname );     //´´½¨ÎÄ±¾ĞĞ   
-	     this.add(this.blank1);   
-	     JLabel label_2 = new JLabel("    ÃÜÂë   ");   
-	     this.add(label_2);   
-	     this.add(password);             
-	     this.add(this.blank2);   
-	     this.add(this.blank3);   
-	     this.add(b_subit);            
+	     this.setResizable(true);
+	     this.setSize(500,300);                 //è®¾ç½®æ¡†æ¶å°ºå¯¸
+	     this.setBackground(Color.LIGHT_GRAY);     //è®¾ç½®æ¡†æ¶èƒŒæ™¯é¢œè‰²
+	     this.setLocation(600,300);               //æ¡†æ¶æ˜¾ç¤ºåœ¨å±å¹•çš„ä½ç½®
+	     this.setLayout(new FlowLayout());        //æ¡†æ¶æµå¸ƒå±€ï¼Œå±…ä¸­
+	     this.add(new JLabel("                                                                                                                                                                                "));      
+	     this.add(label_1);           //åˆ›å»ºæ ‡ç­¾ï¼Œæ·»åŠ åˆ°æ¡†æ¶ä¸Š
+	     this.add(loginname );     //åˆ›å»ºæ–‡æœ¬è¡Œ
+	     this.add(this.blank1);
+	     this.add(label_2);
+	     this.add(password);             //åˆ›å»º20åˆ—çš„æ–‡æœ¬è¡Œ
+	     this.add(this.blank2);
+	     this.add(this.blank3);
+	     this.add(b_subit);              //åˆ›å»ºæŒ‰é’®
 	     this.add(this.blank4);
-	     this.add(b_reset);   
+	     this.add(b_reset);
 	     label_1.setFont(font1);
 	     label_2.setFont(font1);
 	     loginname.setFont(font1);
 	     password.setFont(font1);
 	     b_subit.setFont(font2);
 	     b_reset.setFont(font2);
-	     this.addWindowListener(new WinClose());     
-	  }   
+	     this.addWindowListener(new WinClose()); 
+	  }
 	  @Override
-	  public void actionPerformed(ActionEvent e)           //µ¥»÷°´Å¥Ê±´¥·¢Ö´ĞĞ   
-	  {   
-	      if(e.getSource()==b_subit)     
-	      {  
-	    	 String pwd = new String(password.getPassword());
-	    	 if(loginname.getText().equals("1150310320")&&pwd.equals("0123456789"))   
-	         {
-	    		 JLabel jlabel = new JLabel("<html><body>1.ÇëÈ·±£±¾µçÄÔ°²×°ÁËGraphViz<br><br>2.ÇëÈ·±£GraphViz.javaÎÄ¼şÖĞµÄdot.exeµÄÂ·¾¶ĞŞ¸ÄÎª±¾µçÄÔµÄÓĞĞ§Â·¾¶<br><br></body></html>");
-	    		 jlabel.setForeground(Color.red);
-	    		 jlabel.setFont(new Font("ËÎÌå",Font.BOLD,22));
-	    		 JOptionPane.showMessageDialog(this, jlabel,"ÌáÊ¾",JOptionPane.WARNING_MESSAGE);
-	    		 userjframe.setVisible(true);   
-	             loginframe.setVisible(false);  
-	         }else 
-	         {
-	        	JOptionPane.showMessageDialog(this,"ÓÃ»§Ãû»òÃÜÂë´íÎó\n");    
-	            System.out.println(loginname.getText().equals("1150310320"));
-	         }     
-	      }   
-	      if(e.getSource()==b_reset)
-	      {   
-	         System.exit(0);   
-	      }   
+	  public void actionPerformed(ActionEvent e) { //å•å‡»æŒ‰é’®æ—¶è§¦å‘æ‰§è¡Œ
+		  if(e.getSource() == b_subit) {
+			 String pwd = new String(password.getPassword());
+			 if(loginname.getText().equals("1150310320")&&pwd.equals("0123456789")) {
+				 JLabel jlabel = new JLabel("<html><body>1.è¯·ç¡®ä¿æœ¬ç”µè„‘å®‰è£…äº†GraphViz<br><br>2.è¯·ç¡®ä¿GraphViz.javaæ–‡ä»¶ä¸­çš„dot.exeçš„è·¯å¾„ä¿®æ”¹ä¸ºæœ¬ç”µè„‘çš„æœ‰æ•ˆè·¯å¾„<br><br></body></html>");
+				 jlabel.setForeground(Color.red);
+				 jlabel.setFont(new Font("å®‹ä½“",Font.BOLD,22));
+				 JOptionPane.showMessageDialog(this, jlabel,"æç¤º",JOptionPane.WARNING_MESSAGE);
+				 userjframe.setVisible(true);   
+			     loginframe.setVisible(false);  
+			 } else {
+				 JOptionPane.showMessageDialog(this,"ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯\n");    
+				 System.out.println(loginname.getText().equals("1150310320"));
+		     }
+		  }
+		  if(e.getSource() == b_reset){
+		     System.exit(0);
+		  }
 	  }   
-	  public void run()   
-	  {       
-	      loginframe.setVisible(true);                   //ÏÔÊ¾¿ò¼Ü    
+	  public void run() {
+	      loginframe.setVisible(true);                   //æ˜¾ç¤ºæ¡†æ¶
 	  }
 }   
 
-class WinClose implements WindowListener   
-{   
-	  public void windowClosing(WindowEvent e)     //µ¥»÷´°¿Ú¹Ø±Õ°´Å¥Ê±´¥·¢²¢Ö´ĞĞ   
-	  {                                            //ÊµÏÖWindowListener½Ó¿ÚÖĞµÄ·½·¨   
-	      System.exit(0);                          //½áÊø³ÌĞòÔËĞĞ   
-	  }   
-	 
-	  public void windowOpened(WindowEvent e)         {  }   
-	  public void windowActivated(WindowEvent e)      {  }   
-	  public void windowDeactivated(WindowEvent e)    {  }   
-	  public void windowClosed(WindowEvent e)         {  }   
-	  public void windowIconified(WindowEvent e)      {  }   
-	  public void windowDeiconified(WindowEvent e)    {  }   
+class WinClose implements WindowListener {
+	  public void windowClosing(WindowEvent e) {    //å•å‡»çª—å£å…³é—­æŒ‰é’®æ—¶è§¦å‘å¹¶æ‰§è¡Œ,å®ç°WindowListeneræ¥å£ä¸­çš„æ–¹æ³•
+	      System.exit(0);                          //ç»“æŸç¨‹åºè¿è¡Œ
+	  }
+	  
+	  public void windowOpened(WindowEvent e) {}
+	  public void windowActivated(WindowEvent e) {}
+	  public void windowDeactivated(WindowEvent e) {}
+	  public void windowClosed(WindowEvent e) {}
+	  public void windowIconified(WindowEvent e) {}
+	  public void windowDeiconified(WindowEvent e) {}
 }   
